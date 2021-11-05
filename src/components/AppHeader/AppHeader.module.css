@@ -1,0 +1,23 @@
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #1c1c21;
+}
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}

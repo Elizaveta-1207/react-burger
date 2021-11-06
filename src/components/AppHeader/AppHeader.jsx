@@ -11,7 +11,7 @@ function AppHeader() {
   return (
     <header className={`${appHeader.header} p-4`}>
       <div className={`${appHeader.container}`}>
-        <div className={`${appHeader.nav}`}>
+        <nav className={`${appHeader.nav}`}>
           <div className={`${appHeader.navBtn} mr-2`}>
             <BurgerIcon type='primary' />
             <p className={`text text_type_main-default pl-2 mr-5`}>Конструктор</p>
@@ -22,7 +22,7 @@ function AppHeader() {
               Лента заказов
             </p>
           </div>
-        </div>
+        </nav>
         <Logo />
         <div className={`${appHeader.navBtn} ml-5`}>
           <ProfileIcon type='secondary' />

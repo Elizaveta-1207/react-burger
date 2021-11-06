@@ -1,0 +1,19 @@
+.container {
+  max-width: 272px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  text-align: center;
+}
+
+.price {
+  display: flex;
+}
+
+.priceValue {
+  margin-right: 9px;
+}

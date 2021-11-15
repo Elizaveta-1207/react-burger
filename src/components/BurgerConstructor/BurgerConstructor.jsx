@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+  CurrencyIcon,
+  Button,
+  ConstructorElement,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from './BurgerConstructor.module.css';
-import ConstructorIngredient from '../ConstructorIngredient/ConstructorIngredient';
 
 function BurgerConstructor({ data }) {
   const buns = data.filter((item) => item.type === 'bun');
@@ -15,32 +18,35 @@ function BurgerConstructor({ data }) {
   };
   return (
     <div className={`${burgerConstructor.container} pt-25 pl-4`}>
-      <div className={`${burgerConstructor.ingredients} mb-10`}>
-        <ConstructorIngredient
-          image={buns[0].image}
-          name={buns[0].name}
+      <div className={`${burgerConstructor.ingredients} mb-10 pl-8`}>
+        <ConstructorElement
+          type='top'
+          isLocked={true}
+          text={buns[0].name}
           price={buns[0].price}
-          bun='top'
+          thumbnail={buns[0].image}
         />
+
         <div className={`${burgerConstructor.list}`}>
           {data.map(
             (item, i) =>
               item.type !== 'bun' && (
-                <ConstructorIngredient
+                <ConstructorElement
                   key={item._id}
-                  image={item.image}
-                  name={item.name}
+                  text={item.name}
                   price={item.price}
-                  last={i === data.length - buns.length}
+                  thumbnail={item.image}
                 />
               ),
           )}
         </div>
-        <ConstructorIngredient
-          image={buns[0].image}
-          name={buns[0].name}
+        <ConstructorElement
+          type='bottom'
+          isLocked={true}
+          text={buns[0].name}
           price={buns[0].price}
-          bun='bottom'
+          thumbnail={buns[0].image}
+          className={`${burgerConstructor.elem}`}
         />
       </div>
       <div className={`${burgerConstructor.sumBlock} mr-4`}>
@@ -59,6 +65,6 @@ function BurgerConstructor({ data }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.array.isRequired,
 };
 export default BurgerConstructor;

@@ -25,7 +25,7 @@ function IngredientsContainer({ title, ingredients }) {
   );
 }
 IngredientsContainer.propTypes = {
-  title: PropTypes.string,
-  ingredients: PropTypes.array,
+  title: PropTypes.string.isRequired,
+  ingredients: PropTypes.array.isRequired,
 };
 export default IngredientsContainer;

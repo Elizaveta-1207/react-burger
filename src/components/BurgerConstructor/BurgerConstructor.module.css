@@ -3,7 +3,10 @@
   width: 100%;
 }
 .list {
-  height: calc(100vh - 540px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100vh - 520px);
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -31,4 +34,13 @@
 .sum {
   display: flex;
   align-items: center;
+}
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.elem {
+  width: 100%;
 }

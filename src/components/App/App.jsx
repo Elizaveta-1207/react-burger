@@ -6,6 +6,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderDetails from '../OrderDetails/OrderDetails';
 // import data from '../../utils/data.json';
 const API = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -48,7 +49,7 @@ function App() {
     <>
       {showModal && (
         <Modal onModalClose={handleCloseModal} modalType={modalType}>
-          <IngredientDetails {...ingerients} />
+          {modalType === 'ingredient' ? <IngredientDetails {...ingerients} /> : <OrderDetails />}
         </Modal>
       )}
       <AppHeader />

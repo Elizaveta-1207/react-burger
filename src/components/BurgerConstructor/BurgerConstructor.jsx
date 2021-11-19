@@ -7,8 +7,12 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from './BurgerConstructor.module.css';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor({ data, onModalOpen, getModalType }) {
   const buns = data.filter((item) => item.type === 'bun');
+  const handleClick = () => {
+    getModalType();
+    onModalOpen();
+  };
   const showSum = () => {
     let sum = buns[0].price * 2;
     data.forEach((item) => {
@@ -56,7 +60,7 @@ function BurgerConstructor({ data }) {
           </p>
           <CurrencyIcon type='primary' />
         </div>
-        <Button type='primary' size='large'>
+        <Button type='primary' size='large' onClick={handleClick}>
           Оформить заказ
         </Button>
       </div>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients({ data, onModalOpen, getModalType, getIngredients }) {
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
@@ -31,9 +31,27 @@ function BurgerIngredients({ data }) {
         </p>
       </nav>
       <div className={`${burgerIngredients.ingredientsBlock} mt-10`}>
-        <IngredientsContainer title='Булки' ingredients={buns} />
-        <IngredientsContainer title='Соусы' ingredients={sauces} />
-        <IngredientsContainer title='Начинки' ingredients={main} />
+        <IngredientsContainer
+          title='Булки'
+          ingredients={buns}
+          onModalOpen={onModalOpen}
+          getIngredients={getIngredients}
+          getModalType={getModalType}
+        />
+        <IngredientsContainer
+          title='Соусы'
+          ingredients={sauces}
+          onModalOpen={onModalOpen}
+          getIngredients={getIngredients}
+          getModalType={getModalType}
+        />
+        <IngredientsContainer
+          title='Начинки'
+          ingredients={main}
+          onModalOpen={onModalOpen}
+          getIngredients={getIngredients}
+          getModalType={getModalType}
+        />
       </div>
     </div>
   );

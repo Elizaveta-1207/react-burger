@@ -58,6 +58,18 @@ function BurgerIngredients({ data, onModalOpen, getModalType, getIngredients }) 
 }
 BurgerIngredients.propTypes = {
   data: PropTypes.array.isRequired,
+  image: PropTypes.string,
+  image_large: PropTypes.string,
+  image_mobile: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  calories: PropTypes.number,
+  type: PropTypes.string,
+  _id: PropTypes.string,
+  _v: PropTypes.number,
 };
 
 export default BurgerIngredients;

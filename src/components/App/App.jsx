@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from '../../logo.svg';
 import app from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -7,14 +6,14 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import Modal from '../Modal/Modal';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
-// import data from '../../utils/data.json';
-const API = 'https://norma.nomoreparties.space/api/ingredients';
+
+const BASE_API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 function App() {
   const [data, setData] = React.useState();
   const [showModal, setShowModal] = React.useState(false);
   const [modalType, setModalType] = React.useState();
-  const [ingerients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState([]);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -24,19 +23,12 @@ function App() {
     setShowModal(false);
   };
 
-  const ingredientType = () => {
-    setModalType('ingredient');
-  };
-  const orderType = () => {
-    setModalType('order');
-  };
-
   const handleSetIngredients = (ingr) => {
     setIngredients(ingr);
   };
 
   React.useEffect(() => {
-    fetch(`${API}`)
+    fetch(`${BASE_API_URL}`)
       .then((res) => {
         if (res.ok) return res.json();
       })
@@ -44,12 +36,11 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(modalType);
   return (
     <>
       {showModal && (
         <Modal onModalClose={handleCloseModal} modalType={modalType}>
-          {modalType === 'ingredient' ? <IngredientDetails {...ingerients} /> : <OrderDetails />}
+          {modalType === 'ingredient' ? <IngredientDetails {...ingredients} /> : <OrderDetails />}
         </Modal>
       )}
       <AppHeader />
@@ -59,10 +50,18 @@ function App() {
             <BurgerIngredients
               data={data}
               onModalOpen={handleOpenModal}
-              getModalType={ingredientType}
+              getModalType={() => {
+                setModalType('ingredient');
+              }}
               getIngredients={handleSetIngredients}
             />
-            <BurgerConstructor data={data} onModalOpen={handleOpenModal} getModalType={orderType} />
+            <BurgerConstructor
+              data={data}
+              onModalOpen={handleOpenModal}
+              getModalType={() => {
+                setModalType('order');
+              }}
+            />
           </>
         )}
       </main>

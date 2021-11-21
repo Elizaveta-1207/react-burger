@@ -4,6 +4,7 @@ import {
   CurrencyIcon,
   Button,
   ConstructorElement,
+  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructor from './BurgerConstructor.module.css';
 
@@ -22,36 +23,44 @@ function BurgerConstructor({ data, onModalOpen, getModalType }) {
   };
   return (
     <div className={`${burgerConstructor.container} pt-25 pl-4`}>
-      <div className={`${burgerConstructor.ingredients} mb-10 pl-8`}>
-        <ConstructorElement
-          type='top'
-          isLocked={true}
-          text={`${buns[0].name} (верх)`}
-          price={buns[0].price}
-          thumbnail={buns[0].image}
-        />
-
+      <div className={`${burgerConstructor.ingredients} mb-10 `}>
+        <div className={`${burgerConstructor.elem} ml-8`}>
+          <ConstructorElement
+            type='top'
+            isLocked={true}
+            text={`${buns[0].name} (верх)`}
+            price={buns[0].price}
+            thumbnail={buns[0].image}
+            className={`ml-8`}
+          />
+        </div>
         <div className={`${burgerConstructor.list}`}>
           {data.map(
             (item, i) =>
               item.type !== 'bun' && (
-                <ConstructorElement
-                  key={item._id}
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                />
+                <div className={`${burgerConstructor.elem}`}>
+                  <div className={`${burgerConstructor.drag} mr-2`}>
+                    <DragIcon type='primary' />
+                  </div>
+                  <ConstructorElement
+                    key={item._id}
+                    text={item.name}
+                    price={item.price}
+                    thumbnail={item.image}
+                  />
+                </div>
               ),
           )}
         </div>
-        <ConstructorElement
-          type='bottom'
-          isLocked={true}
-          text={`${buns[0].name} (низ)`}
-          price={buns[0].price}
-          thumbnail={buns[0].image}
-          className={`${burgerConstructor.elem}`}
-        />
+        <div className={`${burgerConstructor.elem} ml-8`}>
+          <ConstructorElement
+            type='bottom'
+            isLocked={true}
+            text={`${buns[0].name} (низ)`}
+            price={buns[0].price}
+            thumbnail={buns[0].image}
+          />
+        </div>
       </div>
       <div className={`${burgerConstructor.sumBlock} mr-4`}>
         <div className={`${burgerConstructor.sum} mr-10`}>

@@ -1,7 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { addIngredientInfo } from '../../services/actions/ingredient';
 
 function Ingredient({
   image,
@@ -12,11 +14,15 @@ function Ingredient({
   carbohydrates,
   calories,
   onModalOpen,
-  getIngredients,
+  //   getIngredients,
   getModalType,
 }) {
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    getIngredients({ image, name, proteins, fat, carbohydrates, calories });
+    // getIngredients({ image, name, proteins, fat, carbohydrates, calories });
+
+    dispatch(addIngredientInfo({ image, name, proteins, fat, carbohydrates, calories }));
     getModalType();
     onModalOpen();
   };
@@ -31,14 +37,14 @@ function Ingredient({
     </div>
   );
 }
-Ingredient.propTypes = {
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-};
+// Ingredient.propTypes = {
+//   image: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   name: PropTypes.string.isRequired,
+//   proteins: PropTypes.number,
+//   fat: PropTypes.number,
+//   carbohydrates: PropTypes.number,
+//   calories: PropTypes.number,
+// };
 
 export default Ingredient;

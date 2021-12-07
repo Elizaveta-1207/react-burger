@@ -19,7 +19,7 @@ function IngredientsContainer({ title, ingredients, onModalOpen, getIngredients,
             carbohydrates={item.carbohydrates}
             calories={item.calories}
             onModalOpen={onModalOpen}
-            getIngredients={getIngredients}
+            // getIngredients={getIngredients}
             getModalType={getModalType}
           />
         ))}

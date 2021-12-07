@@ -1,9 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
 
-function BurgerIngredients({ data, onModalOpen, getModalType, getIngredients }) {
+function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
+  const data = useSelector((state) => state.burgerIngredients.ingredients);
+
+  //   console.log(data);
+
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
@@ -35,21 +40,21 @@ function BurgerIngredients({ data, onModalOpen, getModalType, getIngredients }) 
           title='Булки'
           ingredients={buns}
           onModalOpen={onModalOpen}
-          getIngredients={getIngredients}
+          //   getIngredients={getIngredients}
           getModalType={getModalType}
         />
         <IngredientsContainer
           title='Соусы'
           ingredients={sauces}
           onModalOpen={onModalOpen}
-          getIngredients={getIngredients}
+          //   getIngredients={getIngredients}
           getModalType={getModalType}
         />
         <IngredientsContainer
           title='Начинки'
           ingredients={main}
           onModalOpen={onModalOpen}
-          getIngredients={getIngredients}
+          //   getIngredients={getIngredients}
           getModalType={getModalType}
         />
       </div>
@@ -57,7 +62,7 @@ function BurgerIngredients({ data, onModalOpen, getModalType, getIngredients }) 
   );
 }
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
+  //   data: PropTypes.array.isRequired,
   image: PropTypes.string,
   image_large: PropTypes.string,
   image_mobile: PropTypes.string,

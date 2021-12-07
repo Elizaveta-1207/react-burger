@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 480px;
+  width: 100%;
+}
+.image {
+  width: 100%;
+}
+.details {
+  display: flex;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

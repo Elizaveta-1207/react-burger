@@ -3,9 +3,25 @@ import PropTypes from 'prop-types';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Ingredient({ image, price, name, proteins, fat, carbohydrates, calories }) {
+function Ingredient({
+  image,
+  price,
+  name,
+  proteins,
+  fat,
+  carbohydrates,
+  calories,
+  onModalOpen,
+  getIngredients,
+  getModalType,
+}) {
+  const handleClick = () => {
+    getIngredients({ image, name, proteins, fat, carbohydrates, calories });
+    getModalType();
+    onModalOpen();
+  };
   return (
-    <div className={`${ingredient.container} mb-8`}>
+    <div className={`${ingredient.container} mb-8`} onClick={handleClick}>
       <img src={image} alt='burger-ingredient' className={`${ingredient.image} pl-4 pr-4`} />
       <div className={`${ingredient.price} mt-1`}>
         <p className={`text text_type_digits-default ${ingredient.priceValue}`}>{price}</p>

@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import orderDetails from './OrderDetails.module.css';
 import done from '../../images/done.gif';
 
 function OrderDetails() {
+  const orderNumber = useSelector((state) => state.order.orderNumber);
   return (
     <div className={`${orderDetails.container} pb-30`}>
-      <h3 className={`text text_type_digits-large ${orderDetails.orderId}`}>034536</h3>
+      <h3 className={`text text_type_digits-large ${orderDetails.orderId}`}>{orderNumber}</h3>
       <p className={`text text_type_main-medium mt-8 ${orderDetails.orderIdText}`}>
         идентификатор заказа
       </p>

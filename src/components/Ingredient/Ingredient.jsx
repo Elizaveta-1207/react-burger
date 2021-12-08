@@ -37,14 +37,5 @@ function Ingredient({
     </div>
   );
 }
-// Ingredient.propTypes = {
-//   image: PropTypes.string.isRequired,
-//   price: PropTypes.number.isRequired,
-//   name: PropTypes.string.isRequired,
-//   proteins: PropTypes.number,
-//   fat: PropTypes.number,
-//   carbohydrates: PropTypes.number,
-//   calories: PropTypes.number,
-// };
 
 export default Ingredient;

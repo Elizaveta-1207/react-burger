@@ -69,13 +69,12 @@ function App() {
           }}
           //   getIngredients={handleSetIngredients}
         />
-        {/* <BurgerConstructor
-            data={data}
+        <BurgerConstructor
           onModalOpen={handleOpenModal}
           getModalType={() => {
             setModalType('order');
           }}
-        /> */}
+        />
         {/* </>
         )} */}
       </main>

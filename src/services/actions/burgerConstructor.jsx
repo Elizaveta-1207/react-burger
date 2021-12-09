@@ -23,7 +23,7 @@ export const deleteConstructorIngredient = (key) => {
   };
 };
 
-export const increaseConstructorCount = () => {
+export const increaseConstructorSum = () => {
   return (dispatch) => {
     dispatch({
       type: INCREASE_CONSTRUCTOR_SUM,

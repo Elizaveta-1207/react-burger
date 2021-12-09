@@ -11,6 +11,8 @@ function IngredientsContainer({ title, ingredients, onModalOpen, getIngredients,
         {ingredients.map((item) => (
           <Ingredient
             key={item._id}
+            _id={item._id}
+            type={item.type}
             image={item.image}
             price={item.price}
             name={item.name}

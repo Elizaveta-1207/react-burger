@@ -61,22 +61,22 @@ function App() {
       <main className={`${app.main} pl-4 pr-4 mb-10`}>
         {/* {data && (
           <> */}
-        <BurgerIngredients
-          //   data={data}
-          onModalOpen={handleOpenModal}
-          getModalType={() => {
-            setModalType('ingredient');
-          }}
-          //   getIngredients={handleSetIngredients}
-        />
-        <BurgerConstructor
-          onModalOpen={handleOpenModal}
-          getModalType={() => {
-            setModalType('order');
-          }}
-        />
-        {/* </>
-        )} */}
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients
+            //   data={data}
+            onModalOpen={handleOpenModal}
+            getModalType={() => {
+              setModalType('ingredient');
+            }}
+            //   getIngredients={handleSetIngredients}
+          />
+          <BurgerConstructor
+            onModalOpen={handleOpenModal}
+            getModalType={() => {
+              setModalType('order');
+            }}
+          />
+        </DndProvider>
       </main>
     </>
   );

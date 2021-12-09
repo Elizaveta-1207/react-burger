@@ -7,6 +7,8 @@ export const UPDATE_CONSTRUCTOR_INGREDIENTS = 'UPDATE_CONSTRUCTOR_INGREDIENTS';
 
 export const addConstructorIngredient = (item) => {
   return (dispatch) => {
+    const uniqueId = Math.trunc(Math.random() * 100000000);
+    item.key = uniqueId;
     dispatch({
       type: ADD_CONSTRUCTOR_INGREDIENT,
       payload: item,
@@ -40,8 +42,8 @@ export const decreaseConstructorSum = () => {
 };
 
 export const addConstructorBun = (item) => {
-  const uniqueKey = Math.random();
-  item.key = uniqueKey;
+  const uniqueId = Math.trunc(Math.random() * 100000000);
+  item.key = uniqueId;
   return (dispatch) => {
     dispatch({
       type: ADD_CONSTRUCTOR_BUN,

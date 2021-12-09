@@ -15,6 +15,7 @@ import {
   increaseConstructorSum,
   decreaseConstructorSum,
   addConstructorBun,
+  deleteConstructorIngredient,
 } from '../../services/actions/burgerConstructor';
 
 function BurgerConstructor({ onModalOpen, getModalType }) {
@@ -35,7 +36,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
   }, [constructorBuns, constructorIngredients]);
 
   //   const buns = data.filter((item) => item.type === 'bun');
-  const handleClick = () => {
+  const handleClickOrder = () => {
     const ingredientsId = constructorIngredients.map((item) => item._id);
     dispatch(getOrder([...ingredientsId, constructorBuns._id]));
     getModalType();
@@ -48,6 +49,11 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
   //     });
   //     return sum;
   //   };
+
+  const handleDeleteIngredient = (key) => {
+    dispatch(deleteConstructorIngredient(key));
+    dispatch(decreaseConstructorSum());
+  };
 
   const [{ isHover }, dropRef] = useDrop({
     accept: 'ingredient',
@@ -111,7 +117,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                         text={item.name}
                         price={item.price}
                         thumbnail={item.image}
-                        handleClose={() => console.log(123)}
+                        handleClose={() => handleDeleteIngredient(item.key)}
                       />
                     </div>
                   ),
@@ -158,7 +164,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
           <CurrencyIcon type='primary' />
         </div>
         <div className={`${!sum && burgerConstructor.btn_disabled} `}>
-          <Button type='primary' size='large' onClick={handleClick} disabled={!sum}>
+          <Button type='primary' size='large' onClick={handleClickOrder} disabled={!sum}>
             Оформить заказ
           </Button>
         </div>

@@ -7,7 +7,6 @@ export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
 export const RESET_ORDER = 'RESET_ORDER';
 
 export const getOrder = (itemsId) => {
-  console.log(itemsId);
   return (dispatch) => {
     dispatch({
       type: GET_ORDER_REQUEST,

@@ -38,7 +38,9 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
 
   const handleClickOrder = () => {
     const ingredientsId = constructorIngredients.map((item) => item._id);
-    dispatch(getOrder([...ingredientsId, constructorBuns._id]));
+    constructorBuns
+      ? dispatch(getOrder([...ingredientsId, constructorBuns._id]))
+      : dispatch(getOrder([...ingredientsId, buns[0]._id]));
     getModalType();
     onModalOpen();
   };

@@ -3,7 +3,7 @@ export const DELETE_CONSTRUCTOR_INGREDIENT = 'DELETE_CONSTRUCTOR_INGREDIENT';
 export const INCREASE_CONSTRUCTOR_SUM = 'INCREASE_CONSTRUCTOR_SUM';
 export const DECREASE_CONSTRUCTOR_SUM = 'DECREASE_CONSTRUCTOR_SUM';
 export const ADD_CONSTRUCTOR_BUN = 'ADD_CONSTRUCTOR_BUN';
-export const UPDATE_CONSTRUCTOR_INGREDIENTS = 'UPDATE_CONSTRUCTOR_INGREDIENTS';
+export const MOVE_CONSTRUCTOR_INGREDIENTS = 'MOVE_CONSTRUCTOR_INGREDIENTS';
 
 export const addConstructorIngredient = (item) => {
   return (dispatch) => {
@@ -52,10 +52,10 @@ export const addConstructorBun = (item) => {
   };
 };
 
-export const updateConstructorIngredients = (dragIndex, hoverIndex) => {
+export const moveConstructorIngredients = (dragIndex, hoverIndex) => {
   return (dispatch) => {
     dispatch({
-      type: UPDATE_CONSTRUCTOR_INGREDIENTS,
+      type: MOVE_CONSTRUCTOR_INGREDIENTS,
       payload: { dragIndex, hoverIndex },
     });
   };

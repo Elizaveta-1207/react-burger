@@ -16,10 +16,8 @@ import { clearIngredientInfo } from '../../services/actions/ingredient';
 export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
 
 function App() {
-  //   const [data, setData] = React.useState();
   const [showModal, setShowModal] = React.useState(false);
   const [modalType, setModalType] = React.useState();
-  const [ingredients, setIngredients] = React.useState([]);
 
   const dispatch = useDispatch();
 
@@ -33,19 +31,6 @@ function App() {
     dispatch(clearIngredientInfo());
   };
 
-  //   const handleSetIngredients = (ingr) => {
-  //     setIngredients(ingr);
-  //   };
-
-  //   React.useEffect(() => {
-  //     fetch(`${BASE_API_URL}`)
-  //       .then((res) => {
-  //         if (res.ok) return res.json();
-  //       })
-  //       .then((res) => setData(res.data))
-  //       .catch((err) => console.log(err));
-  //   }, []);
-
   React.useEffect(() => {
     dispatch(getBurgerIngredients());
   }, []);
@@ -54,21 +39,17 @@ function App() {
     <>
       {showModal && (
         <Modal onModalClose={handleCloseModal} modalType={modalType}>
-          {modalType === 'ingredient' ? <IngredientDetails {...ingredients} /> : <OrderDetails />}
+          {modalType === 'ingredient' ? <IngredientDetails /> : <OrderDetails />}
         </Modal>
       )}
       <AppHeader />
       <main className={`${app.main} pl-4 pr-4 mb-10`}>
-        {/* {data && (
-          <> */}
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients
-            //   data={data}
             onModalOpen={handleOpenModal}
             getModalType={() => {
               setModalType('ingredient');
             }}
-            //   getIngredients={handleSetIngredients}
           />
           <BurgerConstructor
             onModalOpen={handleOpenModal}

@@ -17,13 +17,11 @@ function Ingredient({
   carbohydrates,
   calories,
   onModalOpen,
-  //   getIngredients,
   getModalType,
 }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    // getIngredients({ image, name, proteins, fat, carbohydrates, calories });
     console.log(type);
     dispatch(addIngredientInfo({ image, name, proteins, fat, carbohydrates, calories }));
     getModalType();
@@ -54,5 +52,17 @@ function Ingredient({
     </div>
   );
 }
+
+Ingredient.propTypes = {
+  _id: PropTypes.string,
+  type: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  calories: PropTypes.number,
+};
 
 export default Ingredient;

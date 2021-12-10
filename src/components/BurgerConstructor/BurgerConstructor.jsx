@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
-import PropTypes from 'prop-types';
 import {
   CurrencyIcon,
   Button,
@@ -17,9 +16,11 @@ import {
   addConstructorBun,
   deleteConstructorIngredient,
 } from '../../services/actions/burgerConstructor';
+import DraggableIngredient from '../DraggableIngredient/DraggableIngredient';
 
 function BurgerConstructor({ onModalOpen, getModalType }) {
   const dispatch = useDispatch();
+
   const data = useSelector((state) => state.burgerIngredients.ingredients);
   const buns = data.filter((item) => item.type === 'bun');
   const bunsPrice = buns.length > 0 && buns[0].price * 2;
@@ -35,20 +36,12 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     return constructorBuns ? fullPrice + 2 * constructorBuns.price : fullPrice;
   }, [constructorBuns, constructorIngredients]);
 
-  //   const buns = data.filter((item) => item.type === 'bun');
   const handleClickOrder = () => {
     const ingredientsId = constructorIngredients.map((item) => item._id);
     dispatch(getOrder([...ingredientsId, constructorBuns._id]));
     getModalType();
     onModalOpen();
   };
-  //   const showSum = () => {
-  //     let sum = buns[0].price * 2;
-  //     data.forEach((item) => {
-  //       if (item.type !== 'bun') sum += item.price;
-  //     });
-  //     return sum;
-  //   };
 
   const handleDeleteIngredient = (key) => {
     dispatch(deleteConstructorIngredient(key));
@@ -93,7 +86,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                   className={`ml-8`}
                 />
               ) : (
-                // <p className='text text_type_main-medium'>Добавьте булку</p>
                 <ConstructorElement
                   type='top'
                   isLocked={true}
@@ -108,18 +100,20 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
               {constructorIngredients.map(
                 (item, i) =>
                   item.type !== 'bun' && (
-                    <div className={`${burgerConstructor.elem}`} key={i}>
-                      <div className={`${burgerConstructor.drag} mr-2`}>
-                        <DragIcon type='primary' />
+                    <DraggableIngredient key={i} index={i}>
+                      <div className={`${burgerConstructor.elem}`}>
+                        <div className={`${burgerConstructor.drag} mr-2`}>
+                          <DragIcon type='primary' />
+                        </div>
+                        <ConstructorElement
+                          key={item._id}
+                          text={item.name}
+                          price={item.price}
+                          thumbnail={item.image}
+                          handleClose={() => handleDeleteIngredient(item.key)}
+                        />
                       </div>
-                      <ConstructorElement
-                        key={item._id}
-                        text={item.name}
-                        price={item.price}
-                        thumbnail={item.image}
-                        handleClose={() => handleDeleteIngredient(item.key)}
-                      />
-                    </div>
+                    </DraggableIngredient>
                   ),
               )}
             </div>
@@ -133,7 +127,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                   thumbnail={constructorBuns.image}
                 />
               ) : (
-                // <p className='text text_type_main-medium'>Добавьте булку</p>
                 <ConstructorElement
                   type='bottom'
                   isLocked={true}
@@ -154,7 +147,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
       <div className={`${burgerConstructor.sumBlock} mr-4 mt-10`}>
         <div className={`${burgerConstructor.sum} mr-10`}>
           <p className={`text text_type_digits-medium mr-2 ${burgerConstructor.sumValue}`}>
-            {/* {constructorBuns || constructorIngredients.length > 0 ? sum : bunsPrice} */}
             {constructorBuns || constructorIngredients.length > 0
               ? constructorBuns
                 ? sum
@@ -172,8 +164,4 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     </div>
   );
 }
-
-// BurgerConstructor.propTypes = {
-//   data: PropTypes.array.isRequired,
-// };
 export default BurgerConstructor;

@@ -5,9 +5,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
 
-function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
+function BurgerIngredients({ onModalOpen, getModalType }) {
   const data = useSelector((state) => state.burgerIngredients.ingredients);
-  //   console.log(data);
 
   const [currentTab, setCurrentTab] = useState('bun');
 
@@ -72,7 +71,6 @@ function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
             title='Булки'
             ingredients={buns}
             onModalOpen={onModalOpen}
-            //   getIngredients={getIngredients}
             getModalType={getModalType}
           />
         </div>
@@ -81,7 +79,6 @@ function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
             title='Соусы'
             ingredients={sauces}
             onModalOpen={onModalOpen}
-            //   getIngredients={getIngredients}
             getModalType={getModalType}
           />
         </div>
@@ -90,7 +87,6 @@ function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
             title='Начинки'
             ingredients={main}
             onModalOpen={onModalOpen}
-            //   getIngredients={getIngredients}
             getModalType={getModalType}
           />
         </div>
@@ -99,7 +95,6 @@ function BurgerIngredients({ onModalOpen, getModalType, getIngredients }) {
   );
 }
 BurgerIngredients.propTypes = {
-  //   data: PropTypes.array.isRequired,
   image: PropTypes.string,
   image_large: PropTypes.string,
   image_mobile: PropTypes.string,

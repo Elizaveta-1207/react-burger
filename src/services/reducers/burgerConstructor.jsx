@@ -4,7 +4,7 @@ import {
   ADD_CONSTRUCTOR_BUN,
   INCREASE_CONSTRUCTOR_SUM,
   DECREASE_CONSTRUCTOR_SUM,
-  UPDATE_CONSTRUCTOR_INGREDIENTS,
+  MOVE_CONSTRUCTOR_INGREDIENTS,
 } from '../actions/burgerConstructor';
 
 const initialState = {
@@ -49,7 +49,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         constructorSum: state.constructorSum - 1,
       };
     }
-    case UPDATE_CONSTRUCTOR_INGREDIENTS: {
+    case MOVE_CONSTRUCTOR_INGREDIENTS: {
       const newConstructorIngredients = [...state.constructorIngredients];
       newConstructorIngredients.splice(
         action.payload.hoverIndex,

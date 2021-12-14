@@ -43,7 +43,6 @@ function BurgerIngredients({ onModalOpen }) {
   // реализация скролла при нажатии на таб
   const handleTabClick = (currentTab) => {
     setCurrentTab(currentTab);
-    console.log(currentTab);
     currentTab === 'bun' && bunsRef.current.scrollIntoView({ behavior: 'smooth' });
     currentTab === 'sauce' && saucesRef.current.scrollIntoView({ behavior: 'smooth' });
     currentTab === 'main' && mainRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -79,35 +78,9 @@ function BurgerIngredients({ onModalOpen }) {
               title={item.title}
               ingredients={item.ingredients}
               onModalOpen={onModalOpen}
-              // getModalType={getModalType}
             />
           </div>
         ))}
-
-        {/* <div ref={bunsRef}>
-          <IngredientsContainer
-            title='Булки'
-            ingredients={buns}
-            onModalOpen={onModalOpen}
-            // getModalType={getModalType}
-          />
-        </div>
-        <div ref={saucesRef}>
-          <IngredientsContainer
-            title='Соусы'
-            ingredients={sauces}
-            onModalOpen={onModalOpen}
-            // getModalType={getModalType}
-          />
-        </div>
-        <div ref={mainRef}>
-          <IngredientsContainer
-            title='Начинки'
-            ingredients={main}
-            onModalOpen={onModalOpen}
-            // getModalType={getModalType}
-          />
-        </div> */}
       </div>
     </div>
   );

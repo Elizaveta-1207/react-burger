@@ -41,7 +41,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     constructorBuns
       ? dispatch(getOrder([...ingredientsId, constructorBuns._id]))
       : dispatch(getOrder([...ingredientsId, buns[0]._id]));
-    // getModalType();
     onModalOpen();
   };
 
@@ -74,7 +73,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
         {constructorBuns || constructorIngredients.length > 0 ? (
           <div className={`${burgerConstructor.ingredients}`}>
             <div className={`${burgerConstructor.elem} ml-8`}>
-              {/* {constructorBuns ? ( */}
               <ConstructorElement
                 type='top'
                 isLocked={true}
@@ -85,16 +83,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                 thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
                 className={`ml-8`}
               />
-              {/* ) : (
-                <ConstructorElement
-                  type='top'
-                  isLocked={true}
-                  text={`${buns[0].name} (верх) можно заменить`}
-                  price={buns[0].price}
-                  thumbnail={buns[0].image}
-                  className={`ml-8`}
-                />
-              )} */}
             </div>
             <div className={`${burgerConstructor.list}`}>
               {constructorIngredients.map(
@@ -128,24 +116,6 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                 thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
                 className={`ml-8`}
               />
-              {/* {constructorBuns ? (
-                <ConstructorElement
-                  type='bottom'
-                  isLocked={true}
-                  text={`${constructorBuns.name} (низ)`}
-                  price={constructorBuns.price}
-                  thumbnail={constructorBuns.image}
-                />
-              ) : (
-                <ConstructorElement
-                  type='bottom'
-                  isLocked={true}
-                  text={`${buns[0].name} (низ) можно заменить`}
-                  price={buns[0].price}
-                  thumbnail={buns[0].image}
-                  className={`ml-8`}
-                />
-              )} */}
             </div>
           </div>
         ) : (

@@ -55,12 +55,7 @@ function App() {
       <AppHeader />
       <main className={`${app.main} pl-4 pr-4 mb-10`}>
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients
-            onModalOpen={handleOpenModalIngredients}
-            // getModalType={() => {
-            //   setModalType('ingredient');
-            // }}
-          />
+          <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
           <BurgerConstructor onModalOpen={handleOpenModalOrder} />
         </DndProvider>
       </main>

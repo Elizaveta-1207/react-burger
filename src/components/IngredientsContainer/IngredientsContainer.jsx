@@ -21,7 +21,6 @@ function IngredientsContainer({ title, ingredients, onModalOpen }) {
             carbohydrates={item.carbohydrates}
             calories={item.calories}
             onModalOpen={onModalOpen}
-            // getModalType={getModalType}
           />
         ))}
       </div>

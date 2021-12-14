@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export const ingredientReducer = (state = initialState, action) => {
-  //   console.log(action);
   switch (action.type) {
     case ADD_INGREDIENT_INFO: {
       return {

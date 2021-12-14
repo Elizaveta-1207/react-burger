@@ -22,9 +22,7 @@ function Ingredient({
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    // console.log(type);
     dispatch(addIngredientInfo({ image, name, proteins, fat, carbohydrates, calories }));
-    //  getModalType();
     onModalOpen();
   };
 
@@ -45,7 +43,6 @@ function Ingredient({
 
   const bunsAmount = useMemo(() => {
     if (constructorBuns || constructorIngredients.length > 0) {
-      // console.log(buns[0]._id);
       if (constructorBuns) {
         return constructorBuns._id === _id && 2;
       } else {

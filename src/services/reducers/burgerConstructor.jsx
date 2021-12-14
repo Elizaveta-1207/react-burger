@@ -2,15 +2,15 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   DELETE_CONSTRUCTOR_INGREDIENT,
   ADD_CONSTRUCTOR_BUN,
-  INCREASE_CONSTRUCTOR_SUM,
-  DECREASE_CONSTRUCTOR_SUM,
+  INCREASE_CONSTRUCTOR_AMOUNT,
+  DECREASE_CONSTRUCTOR_AMOUNT,
   MOVE_CONSTRUCTOR_INGREDIENTS,
 } from '../actions/burgerConstructor';
 
 const initialState = {
   constructorBuns: null,
   constructorIngredients: [],
-  constructorSum: 0,
+  constructorAmount: 0,
 };
 
 export const burgerConstructorReducer = (state = initialState, action) => {
@@ -37,16 +37,16 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         constructorBuns: action.payload,
       };
     }
-    case INCREASE_CONSTRUCTOR_SUM: {
+    case INCREASE_CONSTRUCTOR_AMOUNT: {
       return {
         ...state,
-        constructorSum: state.constructorSum + 1,
+        constructorAmount: state.constructorAmount + 1,
       };
     }
-    case DECREASE_CONSTRUCTOR_SUM: {
+    case DECREASE_CONSTRUCTOR_AMOUNT: {
       return {
         ...state,
-        constructorSum: state.constructorSum - 1,
+        constructorAmount: state.constructorAmount - 1,
       };
     }
     case MOVE_CONSTRUCTOR_INGREDIENTS: {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ingredientsContainer from './IngredientsContainer.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-function IngredientsContainer({ title, ingredients, onModalOpen, getModalType }) {
+function IngredientsContainer({ title, ingredients, onModalOpen }) {
   return (
     <div className={`mb-10`}>
       <p className={`text text_type_main-medium mb-6`}>{title}</p>
@@ -21,7 +21,7 @@ function IngredientsContainer({ title, ingredients, onModalOpen, getModalType })
             carbohydrates={item.carbohydrates}
             calories={item.calories}
             onModalOpen={onModalOpen}
-            getModalType={getModalType}
+            // getModalType={getModalType}
           />
         ))}
       </div>

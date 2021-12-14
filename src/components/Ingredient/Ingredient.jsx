@@ -18,14 +18,13 @@ function Ingredient({
   carbohydrates,
   calories,
   onModalOpen,
-  getModalType,
 }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    console.log(type);
+    // console.log(type);
     dispatch(addIngredientInfo({ image, name, proteins, fat, carbohydrates, calories }));
-    getModalType();
+    //  getModalType();
     onModalOpen();
   };
 
@@ -42,11 +41,11 @@ function Ingredient({
       if (item._id === _id) amount = amount + 1;
     });
     return amount;
-  }, [constructorIngredients]);
+  }, [constructorIngredients, _id]);
 
   const bunsAmount = useMemo(() => {
     if (constructorBuns || constructorIngredients.length > 0) {
-      console.log(buns[0]._id);
+      // console.log(buns[0]._id);
       if (constructorBuns) {
         return constructorBuns._id === _id && 2;
       } else {
@@ -55,7 +54,7 @@ function Ingredient({
     } else {
       return;
     }
-  }, [constructorBuns, constructorIngredients]);
+  }, [constructorBuns, constructorIngredients, buns, _id]);
 
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',

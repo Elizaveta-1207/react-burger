@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -33,6 +33,16 @@ function App() {
 
   React.useEffect(() => {
     dispatch(getBurgerIngredients());
+  }, [dispatch]);
+
+  const handleOpenModalIngredients = useCallback(() => {
+    setModalType('ingredient');
+    handleOpenModal();
+  }, []);
+
+  const handleOpenModalOrder = useCallback(() => {
+    setModalType('order');
+    handleOpenModal();
   }, []);
 
   return (
@@ -46,17 +56,12 @@ function App() {
       <main className={`${app.main} pl-4 pr-4 mb-10`}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients
-            onModalOpen={handleOpenModal}
-            getModalType={() => {
-              setModalType('ingredient');
-            }}
+            onModalOpen={handleOpenModalIngredients}
+            // getModalType={() => {
+            //   setModalType('ingredient');
+            // }}
           />
-          <BurgerConstructor
-            onModalOpen={handleOpenModal}
-            getModalType={() => {
-              setModalType('order');
-            }}
-          />
+          <BurgerConstructor onModalOpen={handleOpenModalOrder} />
         </DndProvider>
       </main>
     </>

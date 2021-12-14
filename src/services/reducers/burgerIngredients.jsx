@@ -6,8 +6,8 @@ import {
 
 const initialState = {
   ingredients: [],
-  ingredientsRequest: false,
-  ingredientsError: false,
+  isIngredientsLoading: false,
+  isIngredientsGetFailed: false,
 };
 
 export const burgerIngredientsReducer = (state = initialState, action) => {
@@ -15,22 +15,22 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
     case GET_BURGER_INGREDIENTS_REQUEST: {
       return {
         ...state,
-        ingredientsRequest: true,
+        isIngredientsLoading: true,
       };
     }
     case GET_BURGER_INGREDIENTS_SUCCESS: {
       return {
         ...state,
         ingredients: action.payload,
-        ingredientsRequest: false,
-        ingredientsError: false,
+        isIngredientsLoading: false,
+        isIngredientsGetFailed: false,
       };
     }
     case GET_BURGER_INGREDIENTS_ERROR: {
       return {
-        ...state,
-        ingredientsRequest: false,
-        ingredientsError: true,
+        ...initialState,
+        isIngredientsLoading: false,
+        isIngredientsGetFailed: true,
       };
     }
     default: {

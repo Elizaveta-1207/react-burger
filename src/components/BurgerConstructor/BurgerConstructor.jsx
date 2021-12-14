@@ -11,8 +11,8 @@ import burgerConstructor from './BurgerConstructor.module.css';
 import { getOrder } from '../../services/actions/order';
 import {
   addConstructorIngredient,
-  increaseConstructorSum,
-  decreaseConstructorSum,
+  increaseConstructorAmount,
+  decreaseConstructorAmount,
   addConstructorBun,
   deleteConstructorIngredient,
 } from '../../services/actions/burgerConstructor';
@@ -41,13 +41,13 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     constructorBuns
       ? dispatch(getOrder([...ingredientsId, constructorBuns._id]))
       : dispatch(getOrder([...ingredientsId, buns[0]._id]));
-    getModalType();
+    // getModalType();
     onModalOpen();
   };
 
   const handleDeleteIngredient = (key) => {
     dispatch(deleteConstructorIngredient(key));
-    dispatch(decreaseConstructorSum());
+    dispatch(decreaseConstructorAmount());
   };
 
   const [{ isHover }, dropRef] = useDrop({
@@ -59,9 +59,9 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
       if (item.type === 'bun') dispatch(addConstructorBun(item));
       else dispatch(addConstructorIngredient(item));
       if (constructorBuns && item.type === 'bun') {
-        dispatch(increaseConstructorSum());
-        dispatch(decreaseConstructorSum());
-      } else dispatch(increaseConstructorSum());
+        dispatch(increaseConstructorAmount());
+        dispatch(decreaseConstructorAmount());
+      } else dispatch(increaseConstructorAmount());
     },
   });
 
@@ -69,25 +69,23 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     <div className={`${burgerConstructor.container} pt-25 pl-4`}>
       <div
         ref={dropRef}
-        style={{
-          border: `${isHover ? '2px solid #4c4cff' : '2px solid transparent'}`,
-          borderRadius: isHover && '10px',
-          height: !constructorBuns && constructorIngredients.length === 0 && 'calc(100vh - 328px)',
-        }}
+        className={`${burgerConstructor.block} ${isHover && burgerConstructor.block_hovered}`}
       >
         {constructorBuns || constructorIngredients.length > 0 ? (
           <div className={`${burgerConstructor.ingredients}`}>
             <div className={`${burgerConstructor.elem} ml-8`}>
-              {constructorBuns ? (
-                <ConstructorElement
-                  type='top'
-                  isLocked={true}
-                  text={`${constructorBuns.name} (верх)`}
-                  price={constructorBuns.price}
-                  thumbnail={constructorBuns.image}
-                  className={`ml-8`}
-                />
-              ) : (
+              {/* {constructorBuns ? ( */}
+              <ConstructorElement
+                type='top'
+                isLocked={true}
+                text={`${
+                  constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
+                } (верх)`}
+                price={`${constructorBuns ? constructorBuns.price : buns[0].price}`}
+                thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
+                className={`ml-8`}
+              />
+              {/* ) : (
                 <ConstructorElement
                   type='top'
                   isLocked={true}
@@ -96,7 +94,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                   thumbnail={buns[0].image}
                   className={`ml-8`}
                 />
-              )}
+              )} */}
             </div>
             <div className={`${burgerConstructor.list}`}>
               {constructorIngredients.map(
@@ -120,7 +118,17 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
               )}
             </div>
             <div className={`${burgerConstructor.elem} ml-8`}>
-              {constructorBuns ? (
+              <ConstructorElement
+                type='bottom'
+                isLocked={true}
+                text={`${
+                  constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
+                } (низ)`}
+                price={`${constructorBuns ? constructorBuns.price : buns[0].price}`}
+                thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
+                className={`ml-8`}
+              />
+              {/* {constructorBuns ? (
                 <ConstructorElement
                   type='bottom'
                   isLocked={true}
@@ -137,7 +145,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                   thumbnail={buns[0].image}
                   className={`ml-8`}
                 />
-              )}
+              )} */}
             </div>
           </div>
         ) : (

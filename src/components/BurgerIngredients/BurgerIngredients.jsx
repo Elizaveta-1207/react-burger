@@ -5,7 +5,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
 
-function BurgerIngredients({ onModalOpen, getModalType }) {
+function BurgerIngredients({ onModalOpen }) {
   const data = useSelector((state) => state.burgerIngredients.ingredients);
 
   const [currentTab, setCurrentTab] = useState('bun');
@@ -49,6 +49,13 @@ function BurgerIngredients({ onModalOpen, getModalType }) {
     currentTab === 'main' && mainRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // массив видов ингридиентов
+  const typeArr = [
+    { title: 'Булки', ingredients: buns, refName: bunsRef },
+    { title: 'Соусы', ingredients: sauces, refName: saucesRef },
+    { title: 'Начинки', ingredients: main, refName: mainRef },
+  ];
+
   return (
     <div className={`${burgerIngredients.container} mr-10`}>
       <p className={`${burgerIngredients.title} text text_type_main-large mt-10 mb-5`}>
@@ -66,12 +73,23 @@ function BurgerIngredients({ onModalOpen, getModalType }) {
         </Tab>
       </nav>
       <div className={`${burgerIngredients.ingredientsBlock} mt-10`} onScroll={getTab}>
-        <div ref={bunsRef}>
+        {typeArr.map((item, i) => (
+          <div ref={item.refName} key={i}>
+            <IngredientsContainer
+              title={item.title}
+              ingredients={item.ingredients}
+              onModalOpen={onModalOpen}
+              // getModalType={getModalType}
+            />
+          </div>
+        ))}
+
+        {/* <div ref={bunsRef}>
           <IngredientsContainer
             title='Булки'
             ingredients={buns}
             onModalOpen={onModalOpen}
-            getModalType={getModalType}
+            // getModalType={getModalType}
           />
         </div>
         <div ref={saucesRef}>
@@ -79,7 +97,7 @@ function BurgerIngredients({ onModalOpen, getModalType }) {
             title='Соусы'
             ingredients={sauces}
             onModalOpen={onModalOpen}
-            getModalType={getModalType}
+            // getModalType={getModalType}
           />
         </div>
         <div ref={mainRef}>
@@ -87,9 +105,9 @@ function BurgerIngredients({ onModalOpen, getModalType }) {
             title='Начинки'
             ingredients={main}
             onModalOpen={onModalOpen}
-            getModalType={getModalType}
+            // getModalType={getModalType}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

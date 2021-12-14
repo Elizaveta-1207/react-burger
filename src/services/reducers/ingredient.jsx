@@ -15,8 +15,7 @@ export const ingredientReducer = (state = initialState, action) => {
     }
     case CLEAR_INGREDIENT_INFO: {
       return {
-        ...state,
-        ingredient: null,
+        ...initialState,
       };
     }
     default: {

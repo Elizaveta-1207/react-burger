@@ -7,8 +7,8 @@ import {
 
 const initialState = {
   orderNumber: null,
-  orderRequest: false,
-  orderError: false,
+  isOrderLoading: false,
+  isOrderGetFailed: false,
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -16,30 +16,30 @@ export const orderReducer = (state = initialState, action) => {
     case GET_ORDER_REQUEST: {
       return {
         ...state,
-        orderRequest: true,
+        isOrderLoading: true,
       };
     }
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
         orderNumber: action.payload,
-        orderRequest: false,
-        orderError: false,
+        isOrderLoading: false,
+        isOrderGetFailed: false,
       };
     }
     case GET_ORDER_ERROR: {
       return {
-        ...state,
-        orderRequest: false,
-        orderError: true,
+        ...initialState,
+        isOrderLoading: false,
+        isOrderGetFailed: true,
       };
     }
     case RESET_ORDER: {
       return {
-        ...state,
+        ...initialState,
         orderNumber: null,
-        orderRequest: false,
-        orderError: false,
+        isOrderLoading: false,
+        isOrderGetFailed: false,
       };
     }
     default: {

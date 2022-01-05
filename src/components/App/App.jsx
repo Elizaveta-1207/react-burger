@@ -17,6 +17,7 @@ import { clearIngredientInfo } from '../../services/actions/ingredient';
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
 export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
 
@@ -75,6 +76,9 @@ function App() {
         </Route>
         <Route path='/forgot-password' exact>
           <ForgotPassword />
+        </Route>
+        <Route path='/reset-password' exact>
+          <ResetPassword />
         </Route>
       </Switch>
     </>

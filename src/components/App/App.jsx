@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import app from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -12,6 +13,10 @@ import OrderDetails from '../OrderDetails/OrderDetails';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 import { clearOrder } from '../../services/actions/order';
 import { clearIngredientInfo } from '../../services/actions/ingredient';
+
+import Login from '../../pages/Login/Login';
+import Register from '../../pages/Register/Register';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 
 export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
 
@@ -53,12 +58,25 @@ function App() {
         </Modal>
       )}
       <AppHeader />
-      <main className={`${app.main} pl-4 pr-4 mb-10`}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
-          <BurgerConstructor onModalOpen={handleOpenModalOrder} />
-        </DndProvider>
-      </main>
+      <Switch>
+        <Route path='/' exact>
+          <main className={`${app.main} pl-4 pr-4 mb-10`}>
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
+              <BurgerConstructor onModalOpen={handleOpenModalOrder} />
+            </DndProvider>
+          </main>
+        </Route>
+        <Route path='/login' exact>
+          <Login />
+        </Route>
+        <Route path='/register' exact>
+          <Register />
+        </Route>
+        <Route path='/forgot-password' exact>
+          <ForgotPassword />
+        </Route>
+      </Switch>
     </>
   );
 }

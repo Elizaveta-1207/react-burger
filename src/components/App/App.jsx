@@ -18,6 +18,7 @@ import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
 
 import { BASE_API_URL } from '../../utils/constants';
 
@@ -63,7 +64,7 @@ function App() {
       <AppHeader />
       <Switch>
         <Route path='/' exact>
-          <main className={`${app.main} pl-4 pr-4 mb-10`}>
+          <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
               <BurgerConstructor onModalOpen={handleOpenModalOrder} />
@@ -81,6 +82,9 @@ function App() {
         </Route>
         <Route path='/reset-password' exact>
           <ResetPassword />
+        </Route>
+        <Route path='/profile'>
+          <Profile />
         </Route>
       </Switch>
     </>

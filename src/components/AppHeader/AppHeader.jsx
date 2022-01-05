@@ -40,8 +40,14 @@ function AppHeader() {
         </Link>
 
         <NavLink to='/profile' className={`${appHeader.navBtn} ml-5`}>
-          <ProfileIcon type='secondary' />
-          <p className={`text text_type_main-default text_color_inactive pl-2`}>Личный кабинет</p>
+          <ProfileIcon type={`${pathname === '/profile' ? 'primary' : 'secondary'}`} />
+          <p
+            className={`text text_type_main-default pl-2 ${
+              pathname === '/profile' ? '' : 'text_color_inactive'
+            }`}
+          >
+            Личный кабинет
+          </p>
         </NavLink>
       </div>
     </header>

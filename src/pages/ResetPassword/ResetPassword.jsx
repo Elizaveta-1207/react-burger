@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
-import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import resetPassword from './ResetPassword.module.css';
 import { BASE_API_URL } from '../../utils/constants';

@@ -30,8 +30,8 @@ function Ingredient({
     (state) => state.burgerConstructor,
   );
 
-  const data = useSelector((state) => state.burgerIngredients.ingredients);
-  const buns = data.filter((item) => item.type === 'bun');
+  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const buns = dataIngredients.filter((item) => item.type === 'bun');
 
   const ingredientAmount = useMemo(() => {
     let amount = 0;

@@ -21,8 +21,8 @@ import DraggableIngredient from '../DraggableIngredient/DraggableIngredient';
 function BurgerConstructor({ onModalOpen, getModalType }) {
   const dispatch = useDispatch();
 
-  const data = useSelector((state) => state.burgerIngredients.ingredients);
-  const buns = data.filter((item) => item.type === 'bun');
+  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const buns = dataIngredients.filter((item) => item.type === 'bun');
   const bunsPrice = buns.length > 0 && buns[0].price * 2;
   const { constructorBuns, constructorIngredients } = useSelector(
     (state) => state.burgerConstructor,

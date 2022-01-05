@@ -1,4 +1,4 @@
-import { BASE_API_URL } from '../../components/App/App.jsx';
+import { BASE_API_URL } from '../../utils/constants';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';

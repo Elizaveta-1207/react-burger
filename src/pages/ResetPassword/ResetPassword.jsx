@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import resetPassword from './ResetPassword.module.css';
+import { BASE_API_URL } from '../../utils/constants';
 
 function ResetPassword() {
   const history = useHistory();
@@ -27,7 +28,22 @@ function ResetPassword() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(12345);
+    fetch(`${BASE_API_URL}/password-reset/reset`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ password: password, token: code }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        else alert('ERROR');
+      })
+      .then((res) => {
+        if (res.success) history.replace('/login', { forgotPageVisited: false });
+        else alert('ERROR');
+      })
+      .catch((err) => alert(err));
   };
 
   return (

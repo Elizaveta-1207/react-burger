@@ -19,7 +19,9 @@ import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 
-export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
+import { BASE_API_URL } from '../../utils/constants';
+
+// export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
 
 function App() {
   const [showModal, setShowModal] = React.useState(false);

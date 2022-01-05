@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import modalOverlay from './ModalOverlay.module.css';
 
 function ModalOverlay({ children, onModalClose }) {

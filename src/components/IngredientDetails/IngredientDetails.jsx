@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import ingredientDetails from './IngredientDetails.module.css';
 
-function IngredientDetails({ image, name, proteins, fat, carbohydrates, calories }) {
+function IngredientDetails() {
+  const { name, image, calories, proteins, fat, carbohydrates } = useSelector(
+    (state) => state.ingredient.ingredient,
+  );
   return (
     <div className={`${ingredientDetails.container} pb-15`}>
       <img src={image} alt='ingredient-icon' className={ingredientDetails.image} />

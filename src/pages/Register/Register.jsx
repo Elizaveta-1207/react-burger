@@ -54,7 +54,7 @@ function Register() {
           Вход
         </Button>
       </form>
-      <div>
+      <div className={register.info}>
         <div className='text text_type_main-default text_color_inactive'>
           <span>Уже зарегистрированы?</span>
           <Link to='/login' className={`${register.link} ml-2`}>

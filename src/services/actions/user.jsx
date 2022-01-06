@@ -118,3 +118,23 @@ export const login = ({ email, password, history }) => {
       .catch(() => dispatch({ type: AUTH_FAILED }));
   };
 };
+
+export const logout = () => {
+  const refreshToken = getCookie('refreshToken');
+  return (dispatch) => {
+    dispatch({ type: LOGOUT_REQUEST });
+    fetch(`${BASE_API_URL}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ token: `${refreshToken}` }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res.success) dispatch({ type: LOGOUT_SUCCESS });
+        else Promise.reject(res);
+      })
+      .catch(() => dispatch({ type: LOGOUT_FAILED }));
+  };
+};

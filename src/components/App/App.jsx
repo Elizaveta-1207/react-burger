@@ -22,6 +22,8 @@ import Profile from '../../pages/Profile/Profile';
 import { GET_USER_FAILED, getUser } from '../../services/actions/user';
 import { getCookie } from '../../utils/constants';
 
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+
 import { BASE_API_URL } from '../../utils/constants';
 
 // export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
@@ -91,9 +93,9 @@ function App() {
         <Route path='/reset-password' exact>
           <ResetPassword />
         </Route>
-        <Route path='/profile'>
+        <ProtectedRoute path='/profile'>
           <Profile />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </>
   );

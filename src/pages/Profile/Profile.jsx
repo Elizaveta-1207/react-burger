@@ -3,10 +3,13 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './Profile.module.css';
+import { updateUser, logout } from '../../services/actions/user';
 
 function Profile() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('123456');
@@ -22,18 +25,26 @@ function Profile() {
 
   const cancelClick = (e) => {
     e.preventDefault();
-    setPassword('123456');
+    setEmail(user.user.email);
+    setName(user.user.name);
+    setPassword(user.user.password);
   };
 
   const exitClick = () => {
-    console.log(123);
+    dispatch(logout());
     history.replace('/login');
   };
 
   const saveUserInfo = (e) => {
     e.preventDefault();
-    console.log(1234);
+    if (email !== user.user.email || name !== user.user.name)
+      dispatch(updateUser({ email: email, name: name, password: password }));
   };
+
+  React.useEffect(() => {
+    setEmail(user.user.email);
+    setName(user.user.name);
+  }, [user.user.email, user.user.name]);
 
   return (
     <div className={profile.block}>

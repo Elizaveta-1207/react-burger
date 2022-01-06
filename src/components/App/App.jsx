@@ -12,7 +12,6 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import { getBurgerIngredients } from '../../services/actions/burgerIngredients';
 import { clearOrder } from '../../services/actions/order';
-import { clearIngredientInfo } from '../../services/actions/ingredient';
 
 import Login from '../../pages/Login/Login';
 import Register from '../../pages/Register/Register';
@@ -24,15 +23,12 @@ import { getCookie } from '../../utils/constants';
 
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
-import { BASE_API_URL } from '../../utils/constants';
-
-// export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
-
 function App() {
   const [showModal, setShowModal] = React.useState(false);
   const [modalType, setModalType] = React.useState();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -40,8 +36,10 @@ function App() {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    dispatch(clearOrder());
-    dispatch(clearIngredientInfo());
+    if (modalType === 'order') {
+      dispatch(clearOrder());
+      setModalType(null);
+    } else history.replace('/');
   };
 
   React.useEffect(() => {
@@ -66,9 +64,9 @@ function App() {
 
   return (
     <>
-      {showModal && (
+      {showModal && modalType === 'order' && (
         <Modal onModalClose={handleCloseModal} modalType={modalType}>
-          {modalType === 'ingredient' ? <IngredientDetails /> : <OrderDetails />}
+          <OrderDetails />
         </Modal>
       )}
       <AppHeader />
@@ -96,7 +94,22 @@ function App() {
         <ProtectedRoute path='/profile'>
           <Profile />
         </ProtectedRoute>
+        <Route
+          path='/ingredients/:id'
+          render={({ location: { state } }) => !state?.fromSite && <IngredientDetails />}
+        />
       </Switch>
+
+      <Route
+        path='/ingredients/:id'
+        render={({ location: { state } }) =>
+          state?.fromSite && (
+            <Modal onModalClose={handleCloseModal} modalType={'ingredient'}>
+              <IngredientDetails />
+            </Modal>
+          )
+        }
+      />
     </>
   );
 }

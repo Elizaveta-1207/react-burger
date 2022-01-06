@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import resetPassword from './ResetPassword.module.css';
 import { BASE_API_URL } from '../../utils/constants';
 
 function ResetPassword() {
   const history = useHistory();
-  const location = useLocation();
   const [showPassword, setShowPassword] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [password, setPassword] = React.useState('');

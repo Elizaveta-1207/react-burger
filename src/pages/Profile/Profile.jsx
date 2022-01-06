@@ -12,7 +12,7 @@ function Profile() {
 
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
-  const [password, setPassword] = React.useState('123456');
+  const [password, setPassword] = React.useState('54321L');
 
   const onChange = (e) => {
     const target = e.target;
@@ -27,7 +27,7 @@ function Profile() {
     e.preventDefault();
     setEmail(user.user.email);
     setName(user.user.name);
-    setPassword(user.user.password);
+    setPassword('54321L');
   };
 
   const exitClick = () => {

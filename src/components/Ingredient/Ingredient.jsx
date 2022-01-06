@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { addIngredientInfo } from '../../services/actions/ingredient';
+
 import Counter from '../Counter/Counter';
 
 function Ingredient({
@@ -19,11 +20,13 @@ function Ingredient({
   calories,
   onModalOpen,
 }) {
-  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleClick = () => {
-    dispatch(addIngredientInfo({ image, name, proteins, fat, carbohydrates, calories }));
-    onModalOpen();
+    history.replace({
+      pathname: `/ingredients/${_id}`,
+      state: { fromSite: true },
+    });
   };
 
   const { constructorBuns, constructorIngredients } = useSelector(

@@ -96,3 +96,25 @@ export const updateUser = ({ email, password, name }) => {
       .catch(() => dispatch({ type: USER_UPDATE_FAILED }));
   };
 };
+
+export const login = ({ email, password, history }) => {
+  return (dispatch) => {
+    dispatch({ type: AUTH_REQUEST });
+    fetch(`${BASE_API_URL}/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, password: password }),
+    })
+      .then(checkResponse)
+      .then((res) => {
+        if (res.success) {
+          setCookies(res);
+          dispatch({ type: AUTH_SUCCESS, payload: res.user });
+          history.push('/');
+        } else Promise.reject(res);
+      })
+      .catch(() => dispatch({ type: AUTH_FAILED }));
+  };
+};

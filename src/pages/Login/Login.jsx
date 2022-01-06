@@ -6,12 +6,15 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
-import login from './Login.module.css';
+import loginStyle from './Login.module.css';
+import { login } from '../../services/actions/user';
 
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+  const { isAuth, getUserRequest } = useSelector((state) => state.user);
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -23,9 +26,13 @@ function Login() {
     e.preventDefault();
     dispatch(login({ email: email, password: password, history: history }));
   };
+
+  if (getUserRequest) return null;
+  else if (!getUserRequest && isAuth) return <Redirect to={location.state?.from || '/profile'} />;
+
   return (
-    <div className={login.block}>
-      <form onSubmit={onSubmit} noValidate className={login.form}>
+    <div className={loginStyle.block}>
+      <form onSubmit={onSubmit} noValidate className={loginStyle.form}>
         <h2 className='text text_type_main-medium'>Вход</h2>
         <EmailInput name='email' value={email || ''} onChange={onChange} />
         <PasswordInput name='password' value={password || ''} onChange={onChange} />
@@ -33,16 +40,16 @@ function Login() {
           Войти
         </Button>
       </form>
-      <div className={`${login.info}`}>
+      <div className={`${loginStyle.info}`}>
         <div className='text text_type_main-default text_color_inactive mb-4'>
           <span>Вы — новый пользователь?</span>
-          <Link to='/register' className={`${login.link} ml-2`}>
+          <Link to='/register' className={`${loginStyle.link} ml-2`}>
             Зарегистрироваться
           </Link>
         </div>
         <div className='text text_type_main-default text_color_inactive'>
           <span>Забыли пароль?</span>
-          <Link to='/forgot-password' className={`${login.link} ml-2`}>
+          <Link to='/forgot-password' className={`${loginStyle.link} ml-2`}>
             Восстановить пароль
           </Link>
         </div>

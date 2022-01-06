@@ -19,6 +19,8 @@ import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import { GET_USER_FAILED, getUser } from '../../services/actions/user';
+import { getCookie } from '../../utils/constants';
 
 import { BASE_API_URL } from '../../utils/constants';
 
@@ -52,6 +54,12 @@ function App() {
   const handleOpenModalOrder = useCallback(() => {
     setModalType('order');
     handleOpenModal();
+  }, []);
+
+  React.useEffect(() => {
+    if (getCookie('accessToken')) dispatch(getUser());
+    else dispatch({ type: GET_USER_FAILED });
+    dispatch(getBurgerIngredients());
   }, []);
 
   return (

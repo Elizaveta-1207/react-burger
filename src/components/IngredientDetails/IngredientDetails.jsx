@@ -7,6 +7,7 @@ function IngredientDetails() {
   const { name, image, calories, proteins, fat, carbohydrates } = useSelector(
     (state) => state.ingredient.ingredient,
   );
+
   return (
     <div className={`${ingredientDetails.container} pb-15`}>
       <img src={image} alt='ingredient-icon' className={ingredientDetails.image} />

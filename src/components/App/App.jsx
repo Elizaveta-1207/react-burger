@@ -100,7 +100,11 @@ function App() {
         path='/ingredients/:id'
         render={({ location: { state } }) =>
           state?.fromSite && (
-            <Modal onModalClose={handleCloseModal} modalType={'ingredient'}>
+            <Modal
+              onModalClose={handleCloseModal}
+              modalType={'ingredient'}
+              title={'Детали ингредиента'}
+            >
               <IngredientDetails />
             </Modal>
           )

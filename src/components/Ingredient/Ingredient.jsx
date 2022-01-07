@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 import PropTypes from 'prop-types';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
+import { ingredientPropTypes } from '../../utils/types';
 import Counter from '../Counter/Counter';
 
 function Ingredient({
@@ -84,15 +84,7 @@ function Ingredient({
 }
 
 Ingredient.propTypes = {
-  _id: PropTypes.string,
-  type: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
+  ingredientPropTypes,
 };
 
 export default Ingredient;

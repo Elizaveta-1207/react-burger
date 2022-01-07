@@ -15,38 +15,35 @@ function DraggableIngredient({ children, index }) {
       if (!ref.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;
-
       // индекс двигаемой карточки совпадает ли с индексом элемента над которым двигаемый находится
       if (dragIndex === hoverIndex) return;
-
       // нахожу размеры карточки над которой происходит hover
       const hoverBoundingRect = ref.current.getBoundingClientRect();
       // нахожу середину карточки над которой будет зависать двигаемая карточка
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
       // текущая позиция курсора мыши
       const clientOffset = monitor.getClientOffset();
-
       // расстояние от курсора до верхней границы карточки, над которой hover
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
       // тянем сверху вниз
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       // тянем снизу вверх
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return;
-
       // обновляю порядок элементов
       dispatch(moveConstructorIngredients(dragIndex, hoverIndex));
       item.index = hoverIndex;
     },
   });
 
-  const [{ opacity }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag({
     type: 'card',
     item: { index: index },
     collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0 : 1,
+      isDragging: monitor.isDragging(),
     }),
   });
+
+  const opacity = isDragging ? 0 : 1;
 
   drag(drop(ref));
 

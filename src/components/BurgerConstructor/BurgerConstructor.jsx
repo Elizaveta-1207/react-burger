@@ -93,13 +93,12 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
               {constructorIngredients.map(
                 (item, i) =>
                   item.type !== 'bun' && (
-                    <DraggableIngredient key={i} index={i}>
+                    <DraggableIngredient key={item._id} index={i}>
                       <div className={`${burgerConstructor.elem}`}>
                         <div className={`${burgerConstructor.drag} mr-2`}>
                           <DragIcon type='primary' />
                         </div>
                         <ConstructorElement
-                          key={item._id}
                           text={item.name}
                           price={item.price}
                           thumbnail={item.image}

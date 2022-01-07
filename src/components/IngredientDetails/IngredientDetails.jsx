@@ -1,9 +1,10 @@
 import React from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ingredientDetails from './IngredientDetails.module.css';
 
 function IngredientDetails() {
+  const location = useLocation();
   const { id } = useParams();
 
   const ingredientsData = useSelector((state) => state.burgerIngredients.ingredients);
@@ -16,7 +17,10 @@ function IngredientDetails() {
   else if (isIngredientsLoaded && !currentIngredient) return <Redirect to='/' />;
 
   return (
-    <div className={`${ingredientDetails.container} pb-15`}>
+    <div
+      className={`${ingredientDetails.container} pb-15`}
+      style={{ height: `${!location.state?.fromSite && 'calc(100vh - 86px)'}` }}
+    >
       <img
         src={currentIngredient.image}
         alt='ingredient-icon'

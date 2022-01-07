@@ -4,6 +4,8 @@
   align-items: center;
   max-width: 480px;
   width: 100%;
+  justify-content: center;
+  margin: 0 auto;
 }
 .image {
   width: 100%;

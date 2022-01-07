@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import resetPassword from './ResetPassword.module.css';
 import { BASE_API_URL } from '../../utils/constants';
 
 function ResetPassword() {
   const history = useHistory();
+  const location = useLocation();
+  const { isAuth, getUserRequest } = useSelector((state) => state.user);
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -43,6 +47,11 @@ function ResetPassword() {
       })
       .catch((err) => alert(err));
   };
+
+  if (getUserRequest) return null;
+  else if (!getUserRequest && isAuth) {
+    return <Redirect to={location.state?.from || '/profile'} />;
+  } else if (!location.state?.forgotPageVisited) return <Redirect to={'/forgot-password'} />;
 
   return (
     <div onClick={handlePasswordOverlayClick}>

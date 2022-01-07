@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import modal from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
@@ -25,5 +26,11 @@ function Modal({ onModalClose, children, modalType }) {
     modalRoot,
   );
 }
+
+Modal.propTypes = {
+  modalType: PropTypes.string.isRequired,
+  children: PropTypes.element.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+};
 
 export default Modal;

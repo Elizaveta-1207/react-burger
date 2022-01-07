@@ -45,14 +45,15 @@ function Ingredient({
   }, [constructorIngredients, _id]);
 
   const bunsAmount = useMemo(() => {
+    let amount = 0;
     if (constructorBuns || constructorIngredients.length > 0) {
       if (constructorBuns) {
-        return constructorBuns._id === _id && 2;
+        return constructorBuns._id === _id ? 2 : 0;
       } else {
-        return buns[0]._id === _id && 2;
+        return buns[0]._id === _id ? 2 : 0;
       }
     } else {
-      return;
+      return amount;
     }
   }, [constructorBuns, constructorIngredients, buns, _id]);
 

@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {
@@ -144,4 +145,9 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     </div>
   );
 }
+
+BurgerConstructor.propTypes = {
+  onModalOpen: PropTypes.func.isRequired,
+  onModalType: PropTypes.string,
+};
 export default BurgerConstructor;

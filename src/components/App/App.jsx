@@ -42,10 +42,6 @@ function App() {
     } else history.replace('/');
   };
 
-  React.useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
-
   const handleOpenModalIngredients = useCallback(() => {
     setModalType('ingredient');
     handleOpenModal();

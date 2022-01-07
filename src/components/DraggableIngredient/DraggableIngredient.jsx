@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
@@ -55,5 +56,10 @@ function DraggableIngredient({ children, index }) {
     </div>
   );
 }
+
+DraggableIngredient.propTypes = {
+  children: PropTypes.element.isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default DraggableIngredient;

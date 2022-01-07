@@ -86,18 +86,7 @@ function BurgerIngredients({ onModalOpen }) {
   );
 }
 BurgerIngredients.propTypes = {
-  image: PropTypes.string,
-  image_large: PropTypes.string,
-  image_mobile: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  type: PropTypes.string,
-  _id: PropTypes.string,
-  _v: PropTypes.number,
+  onModalOpen: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredients;

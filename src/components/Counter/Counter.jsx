@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import counter from './Counter.module.css';
 
 function Counter({ amount }) {
@@ -12,5 +13,9 @@ function Counter({ amount }) {
     </>
   );
 }
+
+Counter.propTypes = {
+  amount: PropTypes.number,
+};
 
 export default Counter;

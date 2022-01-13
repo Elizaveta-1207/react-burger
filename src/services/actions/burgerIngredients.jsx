@@ -1,4 +1,4 @@
-import { BASE_API_URL } from '../../components/App/App.jsx';
+import { BASE_API_URL } from '../../utils/constants';
 
 export const GET_BURGER_INGREDIENTS_REQUEST = 'GET_BURGER_INGREDIENTS_REQUEST';
 export const GET_BURGER_INGREDIENTS_SUCCESS = 'GET_BURGER_INGREDIENTS_SUCCESS';

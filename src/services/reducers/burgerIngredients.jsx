@@ -8,6 +8,7 @@ const initialState = {
   ingredients: [],
   isIngredientsLoading: false,
   isIngredientsGetFailed: false,
+  isIngredientsLoaded: false,
 };
 
 export const burgerIngredientsReducer = (state = initialState, action) => {
@@ -24,6 +25,7 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
         ingredients: action.payload,
         isIngredientsLoading: false,
         isIngredientsGetFailed: false,
+        isIngredientsLoaded: true,
       };
     }
     case GET_BURGER_INGREDIENTS_ERROR: {

@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import {
   CurrencyIcon,
@@ -20,7 +22,9 @@ import DraggableIngredient from '../DraggableIngredient/DraggableIngredient';
 
 function BurgerConstructor({ onModalOpen, getModalType }) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
+  const { isAuth } = useSelector((state) => state.user);
   const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
   const buns = dataIngredients.filter((item) => item.type === 'bun');
   const bunsPrice = buns.length > 0 && buns[0].price * 2;
@@ -37,6 +41,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
   }, [constructorBuns, constructorIngredients]);
 
   const handleClickOrder = () => {
+    if (!isAuth) return history.replace('/login');
     const ingredientsId = constructorIngredients.map((item) => item._id);
     constructorBuns
       ? dispatch(getOrder([...ingredientsId, constructorBuns._id]))
@@ -88,13 +93,12 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
               {constructorIngredients.map(
                 (item, i) =>
                   item.type !== 'bun' && (
-                    <DraggableIngredient key={i} index={i}>
+                    <DraggableIngredient key={item._id} index={i}>
                       <div className={`${burgerConstructor.elem}`}>
                         <div className={`${burgerConstructor.drag} mr-2`}>
                           <DragIcon type='primary' />
                         </div>
                         <ConstructorElement
-                          key={item._id}
                           text={item.name}
                           price={item.price}
                           thumbnail={item.image}
@@ -144,4 +148,9 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     </div>
   );
 }
+
+BurgerConstructor.propTypes = {
+  onModalOpen: PropTypes.func.isRequired,
+  onModalType: PropTypes.string,
+};
 export default BurgerConstructor;

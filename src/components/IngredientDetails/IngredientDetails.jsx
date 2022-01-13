@@ -1,46 +1,62 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useParams, Redirect, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ingredientDetails from './IngredientDetails.module.css';
 
 function IngredientDetails() {
-  const { name, image, calories, proteins, fat, carbohydrates } = useSelector(
-    (state) => state.ingredient.ingredient,
-  );
+  const location = useLocation();
+  const { id } = useParams();
+
+  const ingredientsData = useSelector((state) => state.burgerIngredients.ingredients);
+  const { isIngredientsLoaded } = useSelector((state) => state.burgerIngredients);
+  const currentIngredient = React.useMemo(() => {
+    return ingredientsData.find((item) => item._id === id);
+  }, [ingredientsData]);
+
+  if (!isIngredientsLoaded) return null;
+  else if (isIngredientsLoaded && !currentIngredient) return <Redirect to='/' />;
+
   return (
-    <div className={`${ingredientDetails.container} pb-15`}>
-      <img src={image} alt='ingredient-icon' className={ingredientDetails.image} />
+    <div
+      className={`${ingredientDetails.container} pb-15`}
+      style={{ height: `${!location.state?.fromSite && 'calc(100vh - 86px)'}` }}
+    >
+      <img
+        src={currentIngredient.image}
+        alt='ingredient-icon'
+        className={ingredientDetails.image}
+      />
       <p className={`text text_type_main-medium mt-4`} style={{ textAlign: 'center' }}>
-        {name}
+        {currentIngredient.name}
       </p>
       <div className={`${ingredientDetails.details} mt-8`}>
         <div className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Калории,ккал</p>
-          <p className='text text_type_digits-default text_color_inactive'>{calories}</p>
+          <p className='text text_type_digits-default text_color_inactive'>
+            {currentIngredient.calories}
+          </p>
         </div>
         <div className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Белки, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{proteins}</p>
+          <p className='text text_type_digits-default text_color_inactive'>
+            {currentIngredient.proteins}
+          </p>
         </div>
         <div className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Жиры, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{fat}</p>
+          <p className='text text_type_digits-default text_color_inactive'>
+            {currentIngredient.fat}
+          </p>
         </div>
         <div className={ingredientDetails.detail}>
           <p className='text text_type_main-default text_color_inactive'>Углеводы, г</p>
-          <p className='text text_type_digits-default text_color_inactive'>{carbohydrates}</p>
+          <p className='text text_type_digits-default text_color_inactive'>
+            {currentIngredient.carbohydrates}
+          </p>
         </div>
       </div>
     </div>
   );
 }
-IngredientDetails.propTypes = {
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  calories: PropTypes.number.isRequired,
-};
 
 export default IngredientDetails;

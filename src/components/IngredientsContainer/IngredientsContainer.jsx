@@ -30,5 +30,6 @@ function IngredientsContainer({ title, ingredients, onModalOpen }) {
 IngredientsContainer.propTypes = {
   title: PropTypes.string.isRequired,
   ingredients: PropTypes.array.isRequired,
+  onModalOpen: PropTypes.func.isRequired,
 };
 export default IngredientsContainer;

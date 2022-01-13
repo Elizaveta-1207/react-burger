@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import app from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -24,11 +24,16 @@ import { getCookie } from '../../utils/constants';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [showModal, setShowModal] = React.useState(false);
-  const [modalType, setModalType] = React.useState();
+  const [showModal, setShowModal] = React.useState < boolean > (false);
+  // const [showModal, setShowModal] = React.useState(false);
+  const [modalType, setModalType] = React.useState < string | null > (null);
+  // const [modalType, setModalType] = React.useState(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const location = useLocation<any>();
+  const back = location.state;
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -66,7 +71,7 @@ function App() {
         </Modal>
       )}
       <AppHeader />
-      <Switch>
+      <Switch location={back|| location}>
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
@@ -90,26 +95,20 @@ function App() {
         <ProtectedRoute path='/profile'>
           <Profile />
         </ProtectedRoute>
-        <Route
-          path='/ingredients/:id'
-          render={({ location: { state } }) => !state?.fromSite && <IngredientDetails />}
-        />
+        <Route path='/ingredients/:id'>
+        {back && <IngredientDetails />}
+        </Route>
       </Switch>
 
-      <Route
-        path='/ingredients/:id'
-        render={({ location: { state } }) =>
-          state?.fromSite && (
-            <Modal
-              onModalClose={handleCloseModal}
+      {back && (
+        <Route path='/ingredients/:id'>
+          <Modal onModalClose={handleCloseModal}
               modalType={'ingredient'}
-              title={'Детали ингредиента'}
-            >
-              <IngredientDetails />
-            </Modal>
-          )
-        }
-      />
+              title={'Детали ингредиента'}>
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
 }

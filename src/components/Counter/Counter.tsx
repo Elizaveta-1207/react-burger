@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import counter from './Counter.module.css';
 
-function Counter({ amount }) {
+type TCount = { amount: number };
+
+
+function Counter({ amount }:TCount) {
   return (
     <>
       {amount > 0 ? (
@@ -13,9 +16,5 @@ function Counter({ amount }) {
     </>
   );
 }
-
-Counter.propTypes = {
-  amount: PropTypes.number,
-};
 
 export default Counter;

@@ -7,6 +7,8 @@ import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropTypes } from '../../utils/types';
 import Counter from '../Counter/Counter';
+import { RootState } from '../../services/reducers';
+import {TIngredientType, TBurgerConstructorType, TBurgerIngredientsType} from '../../utils/types';
 
 function Ingredient({
   _id,
@@ -14,12 +16,7 @@ function Ingredient({
   image,
   price,
   name,
-  proteins,
-  fat,
-  carbohydrates,
-  calories,
-  onModalOpen,
-}) {
+}:TIngredientType) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -30,10 +27,12 @@ function Ingredient({
   };
 
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state) => state.burgerConstructor,
+    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) => state.burgerConstructor
   );
 
-  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const dataIngredients = useSelector(
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) => state.burgerIngredients.ingredients
+  );
   const buns = dataIngredients.filter((item) => item.type === 'bun');
 
   const ingredientAmount = useMemo(() => {
@@ -83,8 +82,5 @@ function Ingredient({
   );
 }
 
-Ingredient.propTypes = {
-  ingredientPropTypes,
-};
 
 export default Ingredient;

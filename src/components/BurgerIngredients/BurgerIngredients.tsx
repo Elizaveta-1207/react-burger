@@ -4,16 +4,22 @@ import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
+import { RootState } from '../../services/reducers';
+import { TBurgerIngredientsType } from '../../utils/types';
 
-function BurgerIngredients({ onModalOpen }) {
-  const data = useSelector((state) => state.burgerIngredients.ingredients);
+
+
+function BurgerIngredients() {
+  const data = useSelector(
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) => state.burgerIngredients.ingredients
+  );
 
   const [currentTab, setCurrentTab] = useState('bun');
 
-  const tabsRef = useRef();
-  const bunsRef = useRef();
-  const saucesRef = useRef();
-  const mainRef = useRef();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const bunsRef = useRef<HTMLDivElement>(null);
+  const saucesRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
   const buns = data.filter((item) => item.type === 'bun');
   const sauces = data.filter((item) => item.type === 'sauce');
@@ -21,12 +27,16 @@ function BurgerIngredients({ onModalOpen }) {
 
   const getTab = () => {
     // верх табов
-    const tabsTop = tabsRef.current.getBoundingClientRect().top;
+    const tabsTop = tabsRef.current?.getBoundingClientRect().top??0;
 
+    // каждый блок верх
+    const bunsTop=bunsRef.current?.getBoundingClientRect().top??0;
+const saucesTop=saucesRef.current?.getBoundingClientRect().top??0;
+const mainTop=mainRef.current?.getBoundingClientRect().top??0;
     // расстояние от верхушки табов до верхушки каждого блока с ингридиентами
-    const bunsDistance = Math.abs(tabsTop - bunsRef.current.getBoundingClientRect().top);
-    const saucesDistance = Math.abs(tabsTop - saucesRef.current.getBoundingClientRect().top);
-    const mainDistance = Math.abs(tabsTop - mainRef.current.getBoundingClientRect().top);
+    const bunsDistance = Math.abs(tabsTop - bunsTop);
+    const saucesDistance = Math.abs(tabsTop - saucesTop);
+    const mainDistance = Math.abs(tabsTop - mainTop);
 
     // минимальное расстояние от верхушки табов до блока с ингридиентами
     const minValue = Math.min(bunsDistance, saucesDistance, mainDistance);
@@ -41,11 +51,11 @@ function BurgerIngredients({ onModalOpen }) {
   };
 
   // реализация скролла при нажатии на таб
-  const handleTabClick = (currentTab) => {
+  const handleTabClick = (currentTab:string) => {
     setCurrentTab(currentTab);
-    currentTab === 'bun' && bunsRef.current.scrollIntoView({ behavior: 'smooth' });
-    currentTab === 'sauce' && saucesRef.current.scrollIntoView({ behavior: 'smooth' });
-    currentTab === 'main' && mainRef.current.scrollIntoView({ behavior: 'smooth' });
+    currentTab === 'bun' && bunsRef.current?.scrollIntoView({ behavior: 'smooth' });
+    currentTab === 'sauce' && saucesRef.current?.scrollIntoView({ behavior: 'smooth' });
+    currentTab === 'main' && mainRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   // массив видов ингридиентов
@@ -60,7 +70,7 @@ function BurgerIngredients({ onModalOpen }) {
       <p className={`${burgerIngredients.title} text text_type_main-large mt-10 mb-5`}>
         Соберите бургер
       </p>
-      <nav className={`${burgerIngredients.nav}`} ref={tabsRef}>
+      <div className={`${burgerIngredients.nav}`} ref={tabsRef}>
         <Tab value='bun' active={currentTab === 'bun'} onClick={() => handleTabClick('bun')}>
           Булки
         </Tab>
@@ -70,14 +80,13 @@ function BurgerIngredients({ onModalOpen }) {
         <Tab value='main' active={currentTab === 'main'} onClick={() => handleTabClick('main')}>
           Начинки
         </Tab>
-      </nav>
+      </div>
       <div className={`${burgerIngredients.ingredientsBlock} mt-10`} onScroll={getTab}>
         {typeArr.map((item, i) => (
           <div ref={item.refName} key={i}>
             <IngredientsContainer
               title={item.title}
               ingredients={item.ingredients}
-              onModalOpen={onModalOpen}
             />
           </div>
         ))}
@@ -85,8 +94,5 @@ function BurgerIngredients({ onModalOpen }) {
     </div>
   );
 }
-BurgerIngredients.propTypes = {
-  onModalOpen: PropTypes.func.isRequired,
-};
 
 export default BurgerIngredients;

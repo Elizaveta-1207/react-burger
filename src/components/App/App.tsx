@@ -47,11 +47,6 @@ function App() {
     } else history.replace('/');
   };
 
-  const handleOpenModalIngredients = useCallback(() => {
-    setModalType('ingredient');
-    handleOpenModal();
-  }, []);
-
   const handleOpenModalOrder = useCallback(() => {
     setModalType('order');
     handleOpenModal();
@@ -75,7 +70,7 @@ function App() {
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
+              <BurgerIngredients />
               <BurgerConstructor onModalOpen={handleOpenModalOrder} />
             </DndProvider>
           </main>

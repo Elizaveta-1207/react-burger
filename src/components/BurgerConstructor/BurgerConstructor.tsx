@@ -163,8 +163,4 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  onModalOpen: PropTypes.func.isRequired,
-  onModalType: PropTypes.string,
-};
 export default BurgerConstructor;

@@ -1,17 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, FC } from 'react';
 import PropTypes from 'prop-types';
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
 import { moveConstructorIngredients } from '../../services/actions/burgerConstructor';
 
-function DraggableIngredient({ children, index }) {
+type TDraggableIngredient = {
+
+  index: number;
+};
+
+export const DraggableIngredient: FC<TDraggableIngredient> =({ children, index })=> {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: 'card',
-    hover: (item, monitor) => {
+    hover: (item:TDraggableIngredient, monitor) => {
       if (!ref.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -24,7 +29,7 @@ function DraggableIngredient({ children, index }) {
       // текущая позиция курсора мыши
       const clientOffset = monitor.getClientOffset();
       // расстояние от курсора до верхней границы карточки, над которой hover
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
       // тянем сверху вниз
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return;
       // тянем снизу вверх
@@ -53,10 +58,5 @@ function DraggableIngredient({ children, index }) {
     </div>
   );
 }
-
-DraggableIngredient.propTypes = {
-  children: PropTypes.element.isRequired,
-  index: PropTypes.number.isRequired,
-};
 
 export default DraggableIngredient;

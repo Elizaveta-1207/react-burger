@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import PropTypes from 'prop-types';
 import modalOverlay from './ModalOverlay.module.css';
 
-function ModalOverlay({ children, onModalClose }) {
+type TModalOverlay = {
+
+  onModalClose: () => void;
+};
+
+export const ModalOverlay: FC<TModalOverlay>=({ children, onModalClose }) =>{
   return (
     <div
       className={modalOverlay.container}
@@ -12,10 +17,5 @@ function ModalOverlay({ children, onModalClose }) {
     </div>
   );
 }
-
-ModalOverlay.propTypes = {
-  children: PropTypes.element.isRequired,
-  onModalClose: PropTypes.func.isRequired,
-};
 
 export default ModalOverlay;

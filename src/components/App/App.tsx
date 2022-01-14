@@ -66,7 +66,7 @@ function App() {
         </Modal>
       )}
       <AppHeader />
-      <Switch location={back|| location}>
+      <Switch location={back || location}>
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>

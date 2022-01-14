@@ -104,7 +104,7 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
               {constructorIngredients.map(
                 (item, i) =>
                   item.type !== 'bun' && (
-                    <DraggableIngredient key={item._id} index={i}>
+                    <DraggableIngredient key={item.key} index={i}>
                       <div className={`${burgerConstructor.elem}`}>
                         <div className={`${burgerConstructor.drag} mr-2`}>
                           <DragIcon type='primary' />
@@ -114,9 +114,11 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
                           price={item.price}
                           thumbnail={item.image!==undefined?item.image: ''}
                           handleClose={() => handleDeleteIngredient(item.key)}
+                          
                         />
                       </div>
                     </DraggableIngredient>
+                    
                   ),
               )}
             </div>

@@ -23,17 +23,13 @@ import { getCookie } from '../../utils/constants';
 
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
-function App() {
-  const [showModal, setShowModal] = React.useState < boolean > (false);
-  // const [showModal, setShowModal] = React.useState(false);
-  const [modalType, setModalType] = React.useState < string | null > (null);
-  // const [modalType, setModalType] = React.useState(null);
+export const App = () => {
+  const [showModal, setShowModal] = React.useState(false);
+  const [modalType, setModalType] = React.useState<string | null>(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
-
   const location = useLocation<any>();
-  const back = location.state;
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -58,6 +54,8 @@ function App() {
     dispatch(getBurgerIngredients());
   }, []);
 
+  console.log(location);
+
   return (
     <>
       {showModal && modalType === 'order' && (
@@ -66,7 +64,7 @@ function App() {
         </Modal>
       )}
       <AppHeader />
-      <Switch location={back || location}>
+      <Switch location={location.state?.fromSite ?? location}>
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
@@ -91,21 +89,23 @@ function App() {
           <Profile />
         </ProtectedRoute>
         <Route path='/ingredients/:id'>
-        {back && <IngredientDetails />}
+          <IngredientDetails />
         </Route>
       </Switch>
 
-      {back && (
+      {location.state?.fromSite && (
         <Route path='/ingredients/:id'>
-          <Modal onModalClose={handleCloseModal}
-              modalType={'ingredient'}
-              title={'Детали ингредиента'}>
+          <Modal
+            onModalClose={handleCloseModal}
+            modalType={'ingredient'}
+            title={'Детали ингредиента'}
+          >
             <IngredientDetails />
           </Modal>
         </Route>
       )}
     </>
   );
-}
+};
 
 export default App;

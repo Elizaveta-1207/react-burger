@@ -48,9 +48,9 @@ export type TIngredientType = {
 
 export type TBurgerIngredientsType = {
   ingredients: Array<TIngredientType> | [];
-  ingredientsRequest: boolean;
-  ingredientsFailed: boolean;
-  ingredientsLoaded: boolean;
+  isIngredientsLoading: boolean;
+  isIngredientsGetFailed: boolean;
+  isIngredientsLoaded: boolean;
 };
 
 export type TBurgerConstructorType = {
@@ -58,3 +58,9 @@ export type TBurgerConstructorType = {
   constructorIngredients: Array<TIngredientType> | [];
   constructorCount: number;
 };
+
+export type TOrderDetailsProps = {
+	orderNumber: number | null;
+	isOrderLoading: boolean;
+	isOrderGetFailed: boolean;
+  };

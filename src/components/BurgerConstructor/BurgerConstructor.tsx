@@ -20,26 +20,33 @@ import {
 } from '../../services/actions/burgerConstructor';
 import DraggableIngredient from '../DraggableIngredient/DraggableIngredient';
 import { RootState } from '../../services/reducers';
-import { TAuthType,TBurgerIngredientsType, TBurgerConstructorType, TIngredientType } from '../../utils/types';
-
-
+import {
+  TAuthType,
+  TBurgerIngredientsType,
+  TBurgerConstructorType,
+  TIngredientType,
+} from '../../utils/types';
 
 type TBurgerConstructor = {
   onModalOpen: () => void;
 };
 
-function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
+function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isAuth } = useSelector((state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user);
+  const { isAuth } = useSelector(
+    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  );
   const dataIngredients = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) => state.burgerIngredients.ingredients
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
+      state.burgerIngredients.ingredients,
   );
   const buns = dataIngredients.filter((item) => item.type === 'bun');
-  const bunsPrice = buns.length > 0 ? buns[0].price * 2:0;
+  const bunsPrice = buns.length > 0 ? buns[0].price * 2 : 0;
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) => state.burgerConstructor
+    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) =>
+      state.burgerConstructor,
   );
 
   const sum = useMemo(() => {
@@ -59,7 +66,7 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
     onModalOpen();
   };
 
-  const handleDeleteIngredient = (key: string|undefined) => {
+  const handleDeleteIngredient = (key: string | undefined) => {
     dispatch(deleteConstructorIngredient(key));
     dispatch(decreaseConstructorAmount());
   };
@@ -69,7 +76,7 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop: (item : TIngredientType) => {
+    drop: (item: TIngredientType) => {
       if (item.type === 'bun') dispatch(addConstructorBun(item));
       else dispatch(addConstructorIngredient(item));
       if (constructorBuns && item.type === 'bun') {
@@ -78,7 +85,6 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
       } else dispatch(increaseConstructorAmount());
     },
   });
-  
 
   return (
     <div className={`${burgerConstructor.container} pt-25 pl-4`}>
@@ -112,13 +118,11 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
                         <ConstructorElement
                           text={item.name}
                           price={item.price}
-                          thumbnail={item.image!==undefined?item.image: ''}
+                          thumbnail={item.image !== undefined ? item.image : ''}
                           handleClose={() => handleDeleteIngredient(item.key)}
-                          
                         />
                       </div>
                     </DraggableIngredient>
-                    
                   ),
               )}
             </div>
@@ -153,8 +157,7 @@ function BurgerConstructor({ onModalOpen}:TBurgerConstructor) {
           <CurrencyIcon type='primary' />
         </div>
         <div className={`${!sum && burgerConstructor.btn_disabled} `}>
-          {/* <Button type='primary' size='large' onClick={handleClickOrder} disabled={!sum}> */}
-          <Button type='primary' size='large' onClick={handleClickOrder}>
+          <Button type='primary' size='large' onClick={handleClickOrder} disabled={!sum}>
             Оформить заказ
           </Button>
         </div>

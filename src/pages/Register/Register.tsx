@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
 import registerStyle from './Register.module.css';
 import { register } from '../../services/actions/user';
 import { emailRegex } from '../../utils/constants';
+import { RootState } from '../../services/reducers';
+import { TAuthType } from '../../utils/types';
 
 function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
-  const { user, isAuth, getUserRequest } = useSelector((state) => state.user);
+  const location = useLocation<any>();
+  const { user, isAuth, getUserRequest } = useSelector(
+    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  );
 
   const [username, setUsername] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -18,7 +22,7 @@ function Register() {
   const [emailError, setEmailError] = React.useState(false);
   const errorText = 'Некорректный email';
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     target.name === 'email'
       ? setEmail(target.value)
@@ -27,7 +31,7 @@ function Register() {
       : setPassword(target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(register({ email: email, name: username, password: password, history: history }));
   };

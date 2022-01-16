@@ -1,22 +1,20 @@
 import React, { useRef, FC } from 'react';
-import PropTypes from 'prop-types';
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
 import { moveConstructorIngredients } from '../../services/actions/burgerConstructor';
 
 type TDraggableIngredient = {
-
   index: number;
 };
 
-export const DraggableIngredient: FC<TDraggableIngredient> =({ children, index })=> {
+export const DraggableIngredient: FC<TDraggableIngredient> = ({ children, index }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: 'card',
-    hover: (item:TDraggableIngredient, monitor) => {
+    hover: (item: TDraggableIngredient, monitor) => {
       if (!ref.current) return;
       const dragIndex = item.index;
       const hoverIndex = index;
@@ -57,6 +55,6 @@ export const DraggableIngredient: FC<TDraggableIngredient> =({ children, index }
       {children}
     </div>
   );
-}
+};
 
 export default DraggableIngredient;

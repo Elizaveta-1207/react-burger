@@ -1,13 +1,11 @@
-import React, {FC} from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import modalOverlay from './ModalOverlay.module.css';
 
 type TModalOverlay = {
-
   onModalClose: () => void;
 };
 
-export const ModalOverlay: FC<TModalOverlay>=({ children, onModalClose }) =>{
+export const ModalOverlay: FC<TModalOverlay> = ({ children, onModalClose }) => {
   return (
     <div
       className={modalOverlay.container}
@@ -16,6 +14,6 @@ export const ModalOverlay: FC<TModalOverlay>=({ children, onModalClose }) =>{
       {children}
     </div>
   );
-}
+};
 
 export default ModalOverlay;

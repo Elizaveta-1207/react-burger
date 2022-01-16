@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import modal from './Modal.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';

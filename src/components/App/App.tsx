@@ -54,8 +54,6 @@ export const App = () => {
     dispatch(getBurgerIngredients());
   }, []);
 
-  console.log(location);
-
   return (
     <>
       {showModal && modalType === 'order' && (
@@ -64,7 +62,7 @@ export const App = () => {
         </Modal>
       )}
       <AppHeader />
-      <Switch location={location.state?.fromSite ?? location}>
+      <Switch>
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
@@ -88,9 +86,7 @@ export const App = () => {
         <ProtectedRoute path='/profile'>
           <Profile />
         </ProtectedRoute>
-        <Route path='/ingredients/:id'>
-          <IngredientDetails />
-        </Route>
+        <Route path='/ingredients/:id'>{location.state?.fromSite && <IngredientDetails />}</Route>
       </Switch>
 
       {location.state?.fromSite && (

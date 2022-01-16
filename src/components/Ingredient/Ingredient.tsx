@@ -2,21 +2,13 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
-import PropTypes from 'prop-types';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropTypes } from '../../utils/types';
 import Counter from '../Counter/Counter';
 import { RootState } from '../../services/reducers';
-import {TIngredientType, TBurgerConstructorType, TBurgerIngredientsType} from '../../utils/types';
+import { TIngredientType, TBurgerConstructorType, TBurgerIngredientsType } from '../../utils/types';
 
-function Ingredient({
-  _id,
-  type,
-  image,
-  price,
-  name,
-}:TIngredientType) {
+function Ingredient({ _id, type, image, price, name }: TIngredientType) {
   const history = useHistory();
 
   const handleClick = () => {
@@ -27,11 +19,13 @@ function Ingredient({
   };
 
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) => state.burgerConstructor
+    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) =>
+      state.burgerConstructor,
   );
 
   const dataIngredients = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) => state.burgerIngredients.ingredients
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
+      state.burgerIngredients.ingredients,
   );
   const buns = dataIngredients.filter((item) => item.type === 'bun');
 
@@ -81,6 +75,5 @@ function Ingredient({
     </div>
   );
 }
-
 
 export default Ingredient;

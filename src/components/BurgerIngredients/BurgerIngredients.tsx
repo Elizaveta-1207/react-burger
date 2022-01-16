@@ -1,17 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
 import { RootState } from '../../services/reducers';
 import { TBurgerIngredientsType } from '../../utils/types';
 
-
-
 function BurgerIngredients() {
   const data = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) => state.burgerIngredients.ingredients
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
+      state.burgerIngredients.ingredients,
   );
 
   const [currentTab, setCurrentTab] = useState('bun');
@@ -27,12 +25,12 @@ function BurgerIngredients() {
 
   const getTab = () => {
     // верх табов
-    const tabsTop = tabsRef.current?.getBoundingClientRect().top??0;
+    const tabsTop = tabsRef.current?.getBoundingClientRect().top ?? 0;
 
     // каждый блок верх
-    const bunsTop=bunsRef.current?.getBoundingClientRect().top??0;
-const saucesTop=saucesRef.current?.getBoundingClientRect().top??0;
-const mainTop=mainRef.current?.getBoundingClientRect().top??0;
+    const bunsTop = bunsRef.current?.getBoundingClientRect().top ?? 0;
+    const saucesTop = saucesRef.current?.getBoundingClientRect().top ?? 0;
+    const mainTop = mainRef.current?.getBoundingClientRect().top ?? 0;
     // расстояние от верхушки табов до верхушки каждого блока с ингридиентами
     const bunsDistance = Math.abs(tabsTop - bunsTop);
     const saucesDistance = Math.abs(tabsTop - saucesTop);
@@ -51,7 +49,7 @@ const mainTop=mainRef.current?.getBoundingClientRect().top??0;
   };
 
   // реализация скролла при нажатии на таб
-  const handleTabClick = (currentTab:string) => {
+  const handleTabClick = (currentTab: string) => {
     setCurrentTab(currentTab);
     currentTab === 'bun' && bunsRef.current?.scrollIntoView({ behavior: 'smooth' });
     currentTab === 'sauce' && saucesRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -84,10 +82,7 @@ const mainTop=mainRef.current?.getBoundingClientRect().top??0;
       <div className={`${burgerIngredients.ingredientsBlock} mt-10`} onScroll={getTab}>
         {typeArr.map((item, i) => (
           <div ref={item.refName} key={i}>
-            <IngredientsContainer
-              title={item.title}
-              ingredients={item.ingredients}
-            />
+            <IngredientsContainer title={item.title} ingredients={item.ingredients} />
           </div>
         ))}
       </div>

@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ingredientsContainer from './IngredientsContainer.module.css';
 import Ingredient from '../Ingredient/Ingredient';
-import {TIngredientType} from '../../utils/types';
-
+import { TIngredientType } from '../../utils/types';
 
 type TIngredientsContainer = {
-  ingredients:TIngredientType[];
+  ingredients: TIngredientType[];
   title: string;
 };
 
-function IngredientsContainer({ title, ingredients}:TIngredientsContainer) {
+function IngredientsContainer({ title, ingredients }: TIngredientsContainer) {
   return (
     <div className={`mb-10`}>
       <p className={`text text_type_main-medium mb-6`}>{title}</p>

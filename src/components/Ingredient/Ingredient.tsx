@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import ingredient from './Ingredient.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -10,11 +10,12 @@ import { TIngredientType, TBurgerConstructorType, TBurgerIngredientsType } from 
 
 function Ingredient({ _id, type, image, price, name }: TIngredientType) {
   const history = useHistory();
+  const location = useLocation<any>();
 
   const handleClick = () => {
     history.replace({
       pathname: `/ingredients/${_id}`,
-      state: { fromSite: true },
+      state: { back: location },
     });
   };
 

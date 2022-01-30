@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
@@ -19,17 +18,34 @@ import {
   deleteConstructorIngredient,
 } from '../../services/actions/burgerConstructor';
 import DraggableIngredient from '../DraggableIngredient/DraggableIngredient';
+import { RootState } from '../../services/reducers';
+import {
+  TAuthType,
+  TBurgerIngredientsType,
+  TBurgerConstructorType,
+  TIngredientType,
+} from '../../utils/types';
 
-function BurgerConstructor({ onModalOpen, getModalType }) {
+type TBurgerConstructor = {
+  onModalOpen: () => void;
+};
+
+function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isAuth } = useSelector((state) => state.user);
-  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const { isAuth } = useSelector(
+    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  );
+  const dataIngredients = useSelector(
+    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
+      state.burgerIngredients.ingredients,
+  );
   const buns = dataIngredients.filter((item) => item.type === 'bun');
-  const bunsPrice = buns.length > 0 && buns[0].price * 2;
+  const bunsPrice = buns.length > 0 ? buns[0].price * 2 : 0;
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state) => state.burgerConstructor,
+    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) =>
+      state.burgerConstructor,
   );
 
   const sum = useMemo(() => {
@@ -49,7 +65,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     onModalOpen();
   };
 
-  const handleDeleteIngredient = (key) => {
+  const handleDeleteIngredient = (key: string | undefined) => {
     dispatch(deleteConstructorIngredient(key));
     dispatch(decreaseConstructorAmount());
   };
@@ -59,7 +75,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop: (item) => {
+    drop: (item: TIngredientType) => {
       if (item.type === 'bun') dispatch(addConstructorBun(item));
       else dispatch(addConstructorIngredient(item));
       if (constructorBuns && item.type === 'bun') {
@@ -84,16 +100,16 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                 text={`${
                   constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
                 } (верх)`}
-                price={`${constructorBuns ? constructorBuns.price : buns[0].price}`}
+                price={constructorBuns ? constructorBuns.price : buns[0].price}
                 thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
-                className={`ml-8`}
+                // className={`ml-8`}
               />
             </div>
             <div className={`${burgerConstructor.list}`}>
               {constructorIngredients.map(
                 (item, i) =>
                   item.type !== 'bun' && (
-                    <DraggableIngredient key={item._id} index={i}>
+                    <DraggableIngredient key={item.key} index={i}>
                       <div className={`${burgerConstructor.elem}`}>
                         <div className={`${burgerConstructor.drag} mr-2`}>
                           <DragIcon type='primary' />
@@ -101,7 +117,7 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                         <ConstructorElement
                           text={item.name}
                           price={item.price}
-                          thumbnail={item.image}
+                          thumbnail={item.image !== undefined ? item.image : ''}
                           handleClose={() => handleDeleteIngredient(item.key)}
                         />
                       </div>
@@ -116,9 +132,9 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
                 text={`${
                   constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
                 } (низ)`}
-                price={`${constructorBuns ? constructorBuns.price : buns[0].price}`}
+                price={constructorBuns ? constructorBuns.price : buns[0].price}
                 thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
-                className={`ml-8`}
+                // className={`ml-8`}
               />
             </div>
           </div>
@@ -149,8 +165,4 @@ function BurgerConstructor({ onModalOpen, getModalType }) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  onModalOpen: PropTypes.func.isRequired,
-  onModalType: PropTypes.string,
-};
 export default BurgerConstructor;

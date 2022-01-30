@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import resetPassword from './ResetPassword.module.css';
 import { BASE_API_URL } from '../../utils/constants';
+import { RootState } from '../../services/reducers';
+import { TAuthType } from '../../utils/types';
 
 function ResetPassword() {
   const history = useHistory();
-  const location = useLocation();
-  const { isAuth, getUserRequest } = useSelector((state) => state.user);
+  const location = useLocation<any>();
+  const { isAuth, getUserRequest } = useSelector(
+    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  );
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [code, setCode] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     target.name === 'code' ? setCode(target.value) : setPassword(target.value);
   };
@@ -23,12 +27,12 @@ function ResetPassword() {
     setShowPassword(!showPassword);
   };
 
-  const handlePasswordOverlayClick = (e) => {
+  const handlePasswordOverlayClick = (e: any) => {
     if (!showPassword && e.currentTarget.classList.value !== 'input__icon input__icon-action')
       setShowPassword(!showPassword);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch(`${BASE_API_URL}/password-reset/reset`, {
       method: 'POST',

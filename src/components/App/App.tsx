@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import app from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -23,12 +23,13 @@ import { getCookie } from '../../utils/constants';
 
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
-function App() {
+export const App = () => {
   const [showModal, setShowModal] = React.useState(false);
-  const [modalType, setModalType] = React.useState();
+  const [modalType, setModalType] = React.useState<string | null>(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation<any>();
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -42,11 +43,6 @@ function App() {
     } else history.replace('/');
   };
 
-  const handleOpenModalIngredients = useCallback(() => {
-    setModalType('ingredient');
-    handleOpenModal();
-  }, []);
-
   const handleOpenModalOrder = useCallback(() => {
     setModalType('order');
     handleOpenModal();
@@ -58,6 +54,8 @@ function App() {
     dispatch(getBurgerIngredients());
   }, []);
 
+  console.log(location);
+
   return (
     <>
       {showModal && modalType === 'order' && (
@@ -66,11 +64,11 @@ function App() {
         </Modal>
       )}
       <AppHeader />
-      <Switch>
+      <Switch location={location.state?.back ?? location}>
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients onModalOpen={handleOpenModalIngredients} />
+              <BurgerIngredients />
               <BurgerConstructor onModalOpen={handleOpenModalOrder} />
             </DndProvider>
           </main>
@@ -90,28 +88,25 @@ function App() {
         <ProtectedRoute path='/profile'>
           <Profile />
         </ProtectedRoute>
-        <Route
-          path='/ingredients/:id'
-          render={({ location: { state } }) => !state?.fromSite && <IngredientDetails />}
-        />
+        <Route path='/ingredients/:id'>
+          {' '}
+          <IngredientDetails />
+        </Route>
       </Switch>
 
-      <Route
-        path='/ingredients/:id'
-        render={({ location: { state } }) =>
-          state?.fromSite && (
-            <Modal
-              onModalClose={handleCloseModal}
-              modalType={'ingredient'}
-              title={'Детали ингредиента'}
-            >
-              <IngredientDetails />
-            </Modal>
-          )
-        }
-      />
+      {location.state?.back && (
+        <Route path='/ingredients/:id'>
+          <Modal
+            onModalClose={handleCloseModal}
+            modalType={'ingredient'}
+            title={'Детали ингредиента'}
+          >
+            <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
-}
+};
 
 export default App;

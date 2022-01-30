@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory, Redirect, useLocation } from 'react-router-dom';
 import {
   PasswordInput,
@@ -8,21 +8,25 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import loginStyle from './Login.module.css';
 import { login } from '../../services/actions/user';
+import { RootState } from '../../services/reducers';
+import { TAuthType } from '../../utils/types';
 
 function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
-  const { isAuth, getUserRequest } = useSelector((state) => state.user);
+  const location = useLocation<any>();
+  const { isAuth, getUserRequest } = useSelector(
+    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  );
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     target.name === 'email' ? setEmail(target.value) : setPassword(target.value);
   };
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login({ email: email, password: password, history: history }));
   };

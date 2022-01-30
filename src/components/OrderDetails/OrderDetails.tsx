@@ -2,9 +2,14 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import orderDetails from './OrderDetails.module.css';
 import done from '../../images/done.gif';
+import { RootState } from '../../services/reducers';
+import { TOrderDetailsProps } from '../../utils/types';
 
 function OrderDetails() {
-  const orderNumber = useSelector((state) => state.order.orderNumber);
+  const orderNumber = useSelector(
+    (state: Omit<RootState, 'order'> & { order: TOrderDetailsProps }) => state.order.orderNumber,
+  );
+
   return (
     <div className={`${orderDetails.container} pb-30`}>
       <h3 className={`text text_type_digits-large ${orderDetails.orderId}`}>{orderNumber}</h3>

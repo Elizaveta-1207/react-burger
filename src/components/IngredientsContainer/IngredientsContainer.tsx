@@ -1,9 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ingredientsContainer from './IngredientsContainer.module.css';
 import Ingredient from '../Ingredient/Ingredient';
+import { TIngredientType } from '../../utils/types';
 
-function IngredientsContainer({ title, ingredients, onModalOpen }) {
+type TIngredientsContainer = {
+  ingredients: TIngredientType[];
+  title: string;
+};
+
+function IngredientsContainer({ title, ingredients }: TIngredientsContainer) {
   return (
     <div className={`mb-10`}>
       <p className={`text text_type_main-medium mb-6`}>{title}</p>
@@ -20,16 +25,11 @@ function IngredientsContainer({ title, ingredients, onModalOpen }) {
             fat={item.fat}
             carbohydrates={item.carbohydrates}
             calories={item.calories}
-            onModalOpen={onModalOpen}
           />
         ))}
       </div>
     </div>
   );
 }
-IngredientsContainer.propTypes = {
-  title: PropTypes.string.isRequired,
-  ingredients: PropTypes.array.isRequired,
-  onModalOpen: PropTypes.func.isRequired,
-};
+
 export default IngredientsContainer;

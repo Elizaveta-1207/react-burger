@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import forgotPassword from './ForgotPassword.module.css';
@@ -10,12 +10,12 @@ function ForgotPassword() {
   const [emailError, setEmailError] = React.useState(false);
   const errorText = 'Некорректный email';
 
-  const onChange = (e) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
     target.name === 'email' && setEmail(target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch(`${BASE_API_URL}/password-reset`, {
       method: 'POST',
@@ -34,6 +34,8 @@ function ForgotPassword() {
       })
       .catch(() => setEmailError(true));
   };
+
+  console.log(!email);
 
   return (
     <div className={forgotPassword.block}>

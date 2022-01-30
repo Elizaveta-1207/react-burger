@@ -9,7 +9,7 @@ import {
 import appHeader from './AppHeader.module.css';
 
 function AppHeader() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation<any>();
   return (
     <header className={`${appHeader.header} p-4`}>
       <div className={`${appHeader.container}`}>

@@ -52,9 +52,7 @@ export const App = () => {
     if (getCookie('accessToken')) dispatch(getUser());
     else dispatch({ type: GET_USER_FAILED });
     dispatch(getBurgerIngredients());
-  }, []);
-
-  console.log(location);
+  }, [dispatch]);
 
   return (
     <>
@@ -89,7 +87,6 @@ export const App = () => {
           <Profile />
         </ProtectedRoute>
         <Route path='/ingredients/:id'>
-          {' '}
           <IngredientDetails />
         </Route>
       </Switch>

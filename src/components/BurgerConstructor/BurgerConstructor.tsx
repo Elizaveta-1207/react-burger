@@ -65,7 +65,7 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
     onModalOpen();
   };
 
-  const handleDeleteIngredient = (key: string | undefined) => {
+  const handleDeleteIngredient = (key: number | undefined) => {
     dispatch(deleteConstructorIngredient(key));
     dispatch(decreaseConstructorAmount());
   };

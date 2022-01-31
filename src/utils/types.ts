@@ -29,7 +29,7 @@ export type TIngredientType = {
   fat: number;
   carbohydrates: number;
   calories: number;
-  key?: string;
+  key?: number;
 };
 
 export type TBurgerIngredientsType = {
@@ -49,4 +49,13 @@ export type TOrderDetailsProps = {
 	orderNumber: number | null;
 	isOrderLoading: boolean;
 	isOrderGetFailed: boolean;
+  };
+
+  export type TUser = { email: string; name: string };
+  
+  export type TRes = {
+	success: boolean;
+	message?: string;
+	user?: TUser;
+	order?: any;
   };

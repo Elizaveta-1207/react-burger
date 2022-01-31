@@ -24,7 +24,7 @@ const initialState = {
   logoutRequest: false,
   logoutError: false,
   errorText: null,
-  getUserRequest: false,
+  getUserRequest: true,
   getUserError: false,
   getUserLoaded: false,
   userUpdateRequest: false,

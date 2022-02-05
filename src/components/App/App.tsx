@@ -18,6 +18,7 @@ import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import Feed from '../../pages/Feed/Feed';
 import { GET_USER_FAILED, getUser } from '../../services/actions/user';
 import { getCookie } from '../../utils/constants';
 
@@ -88,6 +89,9 @@ export const App = () => {
         </ProtectedRoute>
         <Route path='/ingredients/:id'>
           <IngredientDetails />
+        </Route>
+        <Route path='/feed' exact>
+          <Feed />
         </Route>
       </Switch>
 

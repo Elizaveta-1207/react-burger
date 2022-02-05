@@ -55,7 +55,13 @@ export type TOrderDetailsProps = {
   
   export type TRes = {
 	success: boolean;
-	message?: string;
 	user?: TUser;
 	order?: any;
+  };
+
+  export type TRefresh = {
+	success: boolean;
+	accessToken?: string ;
+	refreshToken?: string ;
+	message?: string;
   };

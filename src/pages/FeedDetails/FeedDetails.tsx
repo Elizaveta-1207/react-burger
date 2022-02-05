@@ -37,7 +37,7 @@ function FeedDetails() {
               <img
                 src='https://code.s3.yandex.net/react/code/bun-02.png'
                 alt='feed'
-                style={{ height: 64 }}
+                style={{ height: 64, width: 64, objectFit: 'cover', display: 'block' }}
               />
               <span className='text text_type_main-small'>Краторная булка N-200i</span>
             </div>
@@ -60,7 +60,7 @@ function FeedDetails() {
               <img
                 src='https://code.s3.yandex.net/react/code/bun-02.png'
                 alt='feed'
-                style={{ height: 64 }}
+                style={{ height: 64, width: 64, objectFit: 'cover', display: 'block' }}
               />
               <span className='text text_type_main-small'>Краторная булка N-200i</span>
             </div>
@@ -83,7 +83,7 @@ function FeedDetails() {
               <img
                 src='https://code.s3.yandex.net/react/code/bun-02.png'
                 alt='feed'
-                style={{ height: 64 }}
+                style={{ height: 64, width: 64, objectFit: 'cover', display: 'block' }}
               />
               <span className='text text_type_main-small'>Краторная булка N-200i</span>
             </div>

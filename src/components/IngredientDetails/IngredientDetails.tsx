@@ -27,7 +27,7 @@ function IngredientDetails() {
   return (
     <div
       className={`${ingredientDetails.container} pb-15`}
-      style={{ height: `${!(location as any).state?.back && 'calc(100vh - 86px)'}` }}
+      style={{ height: `${!(location as any).state?.backIngredient && 'calc(100vh - 86px)'}` }}
     >
       <img
         src={currentIngredient?.image}

@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .title {
@@ -15,4 +16,12 @@
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

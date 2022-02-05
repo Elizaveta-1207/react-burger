@@ -30,7 +30,9 @@ export const Modal: FC<TModalProps> = ({ onModalClose, children, modalType, titl
           style={{ justifyContent: modalType === 'ingredient' ? 'space-between' : 'end' }}
         >
           {modalType === 'ingredient' && <p className={`text text_type_main-large`}>{title}</p>}
-          <CloseIcon type='primary' onClick={onModalClose} />
+          <div className={`${modal.close} pt-10  pr-10`}>
+            <CloseIcon type='primary' onClick={onModalClose} />
+          </div>
         </div>
         {children}
       </div>

@@ -8,11 +8,11 @@ function OrderCard(props: { id: string }) {
   const location = useLocation<any>();
   const handleClick = () => {
     if (location.pathname === '/feed')
-      history.replace({ pathname: `/feed/${props.id}`, state: { backgroundForFeed: location } });
+      history.replace({ pathname: `/feed/${props.id}`, state: { backFeed: location } });
     if (location.pathname === '/profile/orders')
       history.replace({
         pathname: `/profile/orders/${props.id}`,
-        state: { backgroundForProfile: location },
+        state: { backProfile: location },
       });
   };
 

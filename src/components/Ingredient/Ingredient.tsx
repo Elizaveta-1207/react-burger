@@ -15,7 +15,7 @@ function Ingredient({ _id, type, image, price, name }: TIngredientType) {
   const handleClick = () => {
     history.replace({
       pathname: `/ingredients/${_id}`,
-      state: { back: location },
+      state: { backIngredient: location },
     });
   };
 

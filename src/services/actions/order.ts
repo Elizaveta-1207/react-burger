@@ -7,7 +7,13 @@ export const GET_ORDER_ERROR = 'GET_ORDER_ERROR';
 
 export const RESET_ORDER = 'RESET_ORDER';
 
+type TGetOrderActionRequest = { readonly type: typeof GET_ORDER_REQUEST };
+type TGetOrderActionSuccess = { readonly type: typeof GET_ORDER_SUCCESS; readonly payload: number };
+type TGetOrderActionError = { readonly type: typeof GET_ORDER_ERROR };
+
 type TResetOrderAction = { readonly type: typeof RESET_ORDER };
+
+export type TOrderActions = TGetOrderActionRequest | TGetOrderActionSuccess | TGetOrderActionError | TResetOrderAction;
 
 export const getOrder: AppThunk = (itemsId) => 
    (dispatch: AppDispatch) => {

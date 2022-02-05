@@ -16,7 +16,27 @@ import {
   USER_UPDATE_FAILED,
 } from '../actions/user';
 
-const initialState = {
+import { TUser } from '../../utils/types';
+import { TUserActions } from '../actions/user';
+
+type TInitialState = {
+	registerRequest: boolean;
+	registerError: boolean;
+	authRequest: boolean;
+	authError: boolean;
+	logoutRequest: boolean;
+	logoutError: boolean;
+	errorText: string | null;
+	getUserRequest: boolean;
+	getUserError: boolean;
+	getUserLoaded: boolean;
+	userUpdateRequest: boolean;
+	userUpdateError: boolean;
+	isAuth: boolean;
+	user: TUser | null;
+  };
+
+const initialState: TInitialState = {
   registerRequest: false,
   registerError: false,
   authRequest: false,
@@ -30,10 +50,10 @@ const initialState = {
   userUpdateRequest: false,
   userUpdateError: false,
   isAuth: false,
-  user: {},
+  user: null,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions): TInitialState => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {
@@ -94,7 +114,7 @@ export const userReducer = (state = initialState, action) => {
         logoutRequest: false,
         logoutError: false,
         isAuth: false,
-        user: {},
+        user: null,
         errorText: '',
       };
     }

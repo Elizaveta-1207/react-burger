@@ -46,6 +46,7 @@ export const App = () => {
     }
     if (location.state?.backIngredient) history.replace(location.state?.backIngredient);
     if (location.state?.backFeed) history.replace(location.state?.backFeed);
+    if (location.state?.backProfile) history.replace(location.state?.backProfile);
   };
 
   const handleOpenModalOrder = useCallback(() => {
@@ -67,7 +68,14 @@ export const App = () => {
         </Modal>
       )}
       <AppHeader />
-      <Switch location={location.state?.backIngredient ?? location.state?.backFeed ?? location}>
+      <Switch
+        location={
+          location.state?.backIngredient ??
+          location.state?.backFeed ??
+          location.state?.backProfile ??
+          location
+        }
+      >
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
@@ -100,6 +108,9 @@ export const App = () => {
         <Route path='/feed/:id'>
           <FeedDetails />
         </Route>
+        <Route path='/profile/orders/:id'>
+          <FeedDetails />
+        </Route>
       </Switch>
 
       {location.state?.backIngredient && (
@@ -116,6 +127,14 @@ export const App = () => {
 
       {location.state?.backFeed && (
         <Route path='/feed/:id'>
+          <Modal onModalClose={handleCloseModal} modalType={'order'}>
+            <FeedDetails />
+          </Modal>
+        </Route>
+      )}
+
+      {location.state?.backProfile && (
+        <Route path='/profile/orders/:id'>
           <Modal onModalClose={handleCloseModal} modalType={'order'}>
             <FeedDetails />
           </Modal>

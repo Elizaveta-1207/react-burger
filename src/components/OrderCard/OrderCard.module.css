@@ -1,6 +1,7 @@
 .card {
   width: 100%;
-  max-width: 584px;
+  /* max-width: 584px; */
+  max-width: 98%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

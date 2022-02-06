@@ -6,6 +6,7 @@ import { TOrder } from '../../utils/types';
 import { useSelector } from '../../services/hooks';
 import { getDate } from '../../utils/constants';
 import { TIngredientType } from '../../utils/types';
+import { relative } from 'path';
 
 function OrderCard(props: TOrder) {
   const history = useHistory();
@@ -34,21 +35,25 @@ function OrderCard(props: TOrder) {
   };
 
   const ingredientsInfo = (ingredientsOrder: Array<string> | null) => {
-    let result: Array<string | undefined> = [];
+    let result: Array<any> = [];
     ingredients?.map((item) => {
       ingredientsOrder!.forEach((element) => {
-        if (element === item._id) result.push(item.image_mobile);
+        if (element === item._id) result.unshift(item.image_mobile);
       });
     });
+
     return result;
   };
 
   const ingredientsInOrder = ingredientsInfo(props.ingredients);
+  const uniqueIngredientsInOrder = ingredientsInOrder?.reduce((unique, item) => {
+    return unique.includes(item) ? unique : [...unique, item];
+  }, []);
 
-  console.log(props.ingredients);
+  const slicedIngredients = uniqueIngredientsInOrder.reverse().slice(0, 6).reverse();
 
-  console.log(ingredientsInOrder);
-  console.log(ingredients);
+  console.log(slicedIngredients.length);
+  console.log(uniqueIngredientsInOrder.length);
 
   return (
     <div className={`${orderCard.card}`} onClick={handleClick}>
@@ -61,11 +66,31 @@ function OrderCard(props: TOrder) {
         className={orderCard.details}
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
       >
-        <img
-          src={`${ingredientsInOrder[0]}`}
-          alt='feed'
-          style={{ height: 64, width: 64, objectFit: 'cover', display: 'block' }}
-        />
+        <div className={orderCard.imgBlock}>
+          {slicedIngredients.map((item: string, i: number) =>
+            uniqueIngredientsInOrder.length - slicedIngredients.length === 0 ? (
+              <img
+                src={`${item}`}
+                alt='feed'
+                className={orderCard.img}
+                style={{ marginRight: i !== 0 ? '-16px' : '0' }}
+              />
+            ) : (
+              <div style={{ position: 'relative' }}>
+                <img
+                  src={`${item}`}
+                  alt='feed'
+                  className={orderCard.img}
+                  style={{ marginRight: i !== 0 ? '-16px' : '0' }}
+                />
+                <div className={`${i === 0 ? orderCard.extra : ''} text text_type_main-default`}>
+                  {i === 0 && '+' + (uniqueIngredientsInOrder.length - slicedIngredients.length)}
+                </div>
+              </div>
+            ),
+          )}
+        </div>
+
         <div className={orderCard.price}>
           <p className='text text_type_digits-default mr-1'>{orderSum}</p>
           <CurrencyIcon type='primary' />

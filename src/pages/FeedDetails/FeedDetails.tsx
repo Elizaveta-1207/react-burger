@@ -54,59 +54,51 @@ function FeedDetails() {
         }`,
       }}
     >
-      <div>
+      <p
+        className='text text_type_digits-default mb-10'
+        style={{ textAlign: 'center' }}
+      >{`#${order?.number}`}</p>
+      <div className='mb-15'>
+        <p className='text text_type_main-medium mb-3'>{order?.name}</p>
         <p
-          className='text text_type_digits-default mb-10'
-          style={{ textAlign: 'center' }}
-        >{`#${order?.number}`}</p>
-        <div className='mb-15'>
-          <p className='text text_type_main-medium mb-3'>{order?.name}</p>
-          <p
-            className='text text_type_main-small'
-            style={{ color: order?.status === 'done' ? '#00CCCC' : '#CC0013' }}
-          >
-            {order?.status === 'done' ? 'Выполнен' : 'Отменен'}
-          </p>
-        </div>
-        <p className='text text_type_main-medium mb-6'>Состав:</p>
-        <div className={`${feedDetails.list} mb-10`}>
-          {ingredientsInOrder.map((item) => (
-            <div
-              key={item._id + Math.random()}
-              style={{
-                width: '95%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-              className={`mb-4`}
-            >
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img
-                  src={item.image_mobile}
-                  alt='feed'
-                  style={{ height: 64, width: 64, objectFit: 'cover', display: 'block' }}
-                />
-                <span className='text text_type_main-small'>{item.name}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <p className={`text text_type_main-medium mr-2`}>{item.price}</p>
-                <CurrencyIcon type='primary' />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div
-          className={`${feedDetails.priceAndDate}`}
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+          className='text text_type_main-small'
+          style={{ color: order?.status === 'done' ? '#00CCCC' : '#CC0013' }}
         >
-          <p className='text text_type_main-small text_color_inactive'>
-            {getDate(order!.createdAt)}
-          </p>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p className={`text text_type_main-medium mr-2`}>{orderPrice}</p>
-            <CurrencyIcon type='primary' />
+          {order?.status === 'done' ? 'Выполнен' : 'Отменен'}
+        </p>
+      </div>
+      <p className='text text_type_main-medium mb-6'>Состав:</p>
+      <div className={`${feedDetails.list} mb-10`}>
+        {ingredientsInOrder.map((item) => (
+          <div
+            key={item._id + Math.random()}
+            style={{
+              width: '95%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+            className={`mb-4`}
+          >
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <img src={item.image_mobile} alt='feed' className={feedDetails.img} />
+              <span className='text text_type_main-small'>{item.name}</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <p className={`text text_type_main-medium mr-2`}>{item.price}</p>
+              <CurrencyIcon type='primary' />
+            </div>
           </div>
+        ))}
+      </div>
+      <div
+        className={`${feedDetails.priceAndDate}`}
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
+      >
+        <p className='text text_type_main-small text_color_inactive'>{getDate(order!.createdAt)}</p>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <p className={`text text_type_main-medium mr-2`}>{orderPrice}</p>
+          <CurrencyIcon type='primary' />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { BASE_API_URL, setCookies, getCookie, retriableFetch } from '../../utils/constants';
+import { BASE_API_URL, setCookies, getCookie, retriableFetch, deleteCookies } from '../../utils/constants';
 import { AppThunk, AppDispatch } from '../reducers';
 import { TRes, TUser, TRefresh } from '../../utils/types';
 
@@ -59,6 +59,13 @@ export type TUserActions =
   | TUpdateUserActionSuccess
   | TUpdateUserActionFailed;
 
+  const loginSuccess = (user: TUser): TLoginActionSuccess => {
+	return { type: AUTH_SUCCESS, payload: user };
+  };
+
+  const loginFailed = (): TLoginActionFailed => {
+	return { type: AUTH_FAILED };
+  };
 
 
 export const register: AppThunk = ({ email, password, name, history }) => {
@@ -155,12 +162,14 @@ export const login: AppThunk = ({ email, password, history }) => (dispatch: AppD
 	  })
       .then((res) => {
         if (res.success) {
-          setCookies(res);
-          dispatch({ type: AUTH_SUCCESS, payload: res.user });
-          history.push('/');
+			const accessToken = res.accessToken.split('Bearer ')[1];
+			setCookies('accessToken', accessToken);
+			setCookies('refreshToken', res.refreshToken);
+			dispatch(loginSuccess(res.user));
+			history.push('/');
         } else Promise.reject(res);
       })
-      .catch(() => dispatch({ type: AUTH_FAILED }));
+      .catch(() => dispatch(loginFailed()));
   };
 
 
@@ -179,8 +188,11 @@ export const logout : AppThunk = () => (dispatch: AppDispatch) => {
 		else return res.json().then((err) => Promise.reject(err));
 	  })
       .then((res) => {
-        if (res.success) dispatch({ type: LOGOUT_SUCCESS });
-        else Promise.reject(res);
+        if (res.success) {
+			deleteCookies('accessToken');
+			deleteCookies('refreshToken');
+			dispatch({ type: LOGOUT_SUCCESS });
+		  } else Promise.reject(res);
       })
       .catch(() => dispatch({ type: LOGOUT_FAILED }));
   };

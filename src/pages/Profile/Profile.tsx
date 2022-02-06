@@ -1,17 +1,21 @@
 import React, { ChangeEvent } from 'react';
 import { NavLink, useHistory, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './Profile.module.css';
 import { updateUser, logout } from '../../services/actions/user';
 import { RootState } from '../../services/reducers';
 import { TAuthType } from '../../utils/types';
 import OrderCard from '../../components/OrderCard/OrderCard';
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/types';
+import { getCookie, WS_URL } from '../../utils/constants';
 
 function Profile() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user);
+  const user = useSelector((state) => state.user);
+  const accessToken = getCookie('accessToken');
+  const { orders } = useSelector((state) => state.orders);
 
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
@@ -27,8 +31,8 @@ function Profile() {
   };
 
   const cancelClick = () => {
-    setEmail(user.user.email);
-    setName(user.user.name);
+    setEmail(user.user!.email);
+    setName(user.user!.name);
     setPassword('54321L');
   };
 
@@ -38,14 +42,21 @@ function Profile() {
   };
 
   const saveUserInfo = () => {
-    if (email !== user.user.email || name !== user.user.name)
+    if (email !== user.user!.email || name !== user.user!.name)
       dispatch(updateUser({ email: email, name: name, password: password }));
   };
 
   React.useEffect(() => {
-    setEmail(user.user.email);
-    setName(user.user.name);
-  }, [user.user.email, user.user.name]);
+    setEmail(user.user!.email);
+    setName(user.user!.name);
+  }, [user.user]);
+
+  React.useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START, payload: `${WS_URL}/all?token=${accessToken}` });
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, [accessToken, dispatch]);
 
   return (
     <div className={profile.block}>
@@ -125,9 +136,18 @@ function Profile() {
         </Route>
         <Route path='/profile/orders'>
           <div className={`${profile.ordersBlock}`}>
-            <OrderCard id={'034535'} />
-            <OrderCard id={'034535'} />
-            <OrderCard id={'034535'} />
+            {orders.map((order) => (
+              <OrderCard
+                key={order._id}
+                _id={order._id}
+                createdAt={order.createdAt}
+                updatedAt={order.updatedAt}
+                status={order.status}
+                number={order.number}
+                name={order.name}
+                ingredients={order.ingredients}
+              />
+            ))}
           </div>
         </Route>
       </Switch>

@@ -1,5 +1,7 @@
-import { BASE_API_URL } from '../../utils/constants';
+import { BASE_API_URL, retriableFetch, getCookie } from '../../utils/constants';
 import { AppThunk, AppDispatch } from '../reducers';
+import { TRes } from '../../utils/types';
+
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -17,20 +19,18 @@ export type TOrderActions = TGetOrderActionRequest | TGetOrderActionSuccess | TG
 
 export const getOrder: AppThunk = (itemsId) => 
    (dispatch: AppDispatch) => {
+	const accessToken = getCookie('accessToken');
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    fetch(`${BASE_API_URL}/orders`, {
+    retriableFetch<TRes>(`${BASE_API_URL}/orders`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
+		authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify({ ingredients: itemsId }),
     })
-      .then((res) => {
-        if (res.ok) return res.json();
-        else dispatch({ type: GET_ORDER_ERROR });
-      })
       .then((res) => dispatch({ type: GET_ORDER_SUCCESS, payload: res.order.number }))
       .catch(() => dispatch({ type: GET_ORDER_ERROR }));
   };

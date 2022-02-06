@@ -24,6 +24,7 @@ export type TIngredientType = {
   type: string;
   image?: string;
   image_large?: string;
+  image_mobile?: string;
   price: number;
   proteins: number;
   fat: number;
@@ -65,3 +66,14 @@ export type TOrderDetailsProps = {
 	refreshToken?: string ;
 	message?: string;
   };
+
+  export type TOrder = {
+	createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number;
+	status: string;
+	updatedAt: string;
+	_id: string;
+  };
+  

@@ -30,7 +30,7 @@ export type TIngredientType = {
   fat: number;
   carbohydrates: number;
   calories: number;
-  key?: number;
+  key?: number|string;
 };
 
 export type TBurgerIngredientsType = {

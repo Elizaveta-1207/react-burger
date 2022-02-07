@@ -8,7 +8,7 @@ export const ADD_CONSTRUCTOR_BUN = 'ADD_CONSTRUCTOR_BUN';
 export const MOVE_CONSTRUCTOR_INGREDIENTS = 'MOVE_CONSTRUCTOR_INGREDIENTS';
 
 type TAddConstructorIngredientAction = { readonly type: typeof ADD_CONSTRUCTOR_INGREDIENT; readonly payload: TIngredientType };
-type TDeleteConstructorIngredientAction = { readonly type: typeof DELETE_CONSTRUCTOR_INGREDIENT; readonly payload: number|undefined };
+type TDeleteConstructorIngredientAction = { readonly type: typeof DELETE_CONSTRUCTOR_INGREDIENT; readonly payload: number|undefined|string };
 type TIncreaseConstructorAmountAction = { readonly type: typeof INCREASE_CONSTRUCTOR_AMOUNT };
 type TDecreaseConstructorAmountAction = { readonly type: typeof DECREASE_CONSTRUCTOR_AMOUNT };
 type TAddConstructorBunAction = { readonly type: typeof ADD_CONSTRUCTOR_BUN; readonly payload: TIngredientType };
@@ -34,7 +34,7 @@ export const addConstructorIngredient = (item: TIngredientType) :TAddConstructor
     });
   };
 
-export const deleteConstructorIngredient = (key:  number|undefined): TDeleteConstructorIngredientAction => {
+export const deleteConstructorIngredient = (key:  number|undefined|string): TDeleteConstructorIngredientAction => {
 	return { type: DELETE_CONSTRUCTOR_INGREDIENT, payload: key };
   };
 

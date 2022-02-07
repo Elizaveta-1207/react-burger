@@ -15,7 +15,8 @@ function IngredientsContainer({ title, ingredients }: TIngredientsContainer) {
       <div className={`${ingredientsContainer.container} pl-4 pr-4`}>
         {ingredients.map((item) => (
           <Ingredient
-            key={item.key}
+            // key={item.key}
+            key={item._id}
             _id={item._id}
             type={item.type}
             image={item.image}

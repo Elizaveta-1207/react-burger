@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Redirect, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import ingredientDetails from './IngredientDetails.module.css';
 import { RootState } from '../../services/reducers';
 import { TBurgerIngredientsType } from '../../utils/types';
@@ -9,16 +9,10 @@ function IngredientDetails() {
   const location = useLocation<any>();
   const { id } = useParams<{ id: string }>();
 
-  const ingredientsData = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
-      state.burgerIngredients.ingredients,
-  );
-  const { isIngredientsLoaded } = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
-      state.burgerIngredients,
-  );
+  const ingredientsData = useSelector((state) => state.burgerIngredients.ingredients);
+  const { isIngredientsLoaded } = useSelector((state) => state.burgerIngredients);
   const currentIngredient = React.useMemo(() => {
-    return ingredientsData.find((item) => item._id === id);
+    return ingredientsData!.find((item) => item._id === id);
   }, [ingredientsData]);
 
   if (!isIngredientsLoaded) return null;

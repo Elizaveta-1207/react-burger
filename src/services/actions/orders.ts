@@ -11,6 +11,7 @@ type TWSConnectionGetMessage = {
 };
 type TWSConnectionSendMessage = { readonly type: typeof WS_SEND_MESSAGE; readonly payload?: any };
 
+
 export type TWSActions =
   | TWSConnectionStart
   | TWSConnectionSuccess

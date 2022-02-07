@@ -52,9 +52,6 @@ function OrderCard(props: TOrder) {
 
   const slicedIngredients = uniqueIngredientsInOrder.reverse().slice(0, 6).reverse();
 
-  console.log(slicedIngredients.length);
-  console.log(uniqueIngredientsInOrder.length);
-
   return (
     <div className={`${orderCard.card}`} onClick={handleClick}>
       <div className={`${orderCard.orderAndDate} mb-6`}>
@@ -70,13 +67,14 @@ function OrderCard(props: TOrder) {
           {slicedIngredients.map((item: string, i: number) =>
             uniqueIngredientsInOrder.length - slicedIngredients.length === 0 ? (
               <img
+                key={i}
                 src={`${item}`}
                 alt='feed'
                 className={orderCard.img}
                 style={{ marginRight: i !== 0 ? '-16px' : '0' }}
               />
             ) : (
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: 'relative' }} key={i}>
                 <img
                   src={`${item}`}
                   alt='feed'

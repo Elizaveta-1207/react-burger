@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import ingredient from './Ingredient.module.css';
@@ -20,15 +20,11 @@ function Ingredient({ _id, type, image, price, name }: TIngredientType) {
   };
 
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) =>
-      state.burgerConstructor,
+    (state) => state.burgerConstructor,
   );
 
-  const dataIngredients = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
-      state.burgerIngredients.ingredients,
-  );
-  const buns = dataIngredients.filter((item) => item.type === 'bun');
+  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const buns = dataIngredients!.filter((item) => item.type === 'bun');
 
   const ingredientAmount = useMemo(() => {
     let amount = 0;

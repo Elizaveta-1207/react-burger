@@ -5,7 +5,7 @@ import {
   EmailInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import loginStyle from './Login.module.css';
 import { login } from '../../services/actions/user';
 import { RootState } from '../../services/reducers';
@@ -15,9 +15,7 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation<any>();
-  const { isAuth, getUserRequest } = useSelector(
-    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
-  );
+  const { isAuth, getUserRequest } = useSelector((state) => state.user);
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

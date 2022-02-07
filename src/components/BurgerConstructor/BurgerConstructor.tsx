@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useHistory } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import {
@@ -34,18 +34,14 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isAuth } = useSelector(
-    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
-  );
-  const dataIngredients = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
-      state.burgerIngredients.ingredients,
-  );
-  const buns = dataIngredients.filter((item) => item.type === 'bun');
-  const bunsPrice = buns.length > 0 ? buns[0].price * 2 : 0;
+  const { isAuth } = useSelector((state) => state.user);
+  const dataIngredients = useSelector((state) => state.burgerIngredients.ingredients);
+  const buns = useMemo(() => {
+    return dataIngredients && dataIngredients.filter((item) => item.type === 'bun');
+  }, [dataIngredients]);
+  const bunsPrice = buns!.length > 0 ? buns![0].price * 2 : 0;
   const { constructorBuns, constructorIngredients } = useSelector(
-    (state: Omit<RootState, 'burgerConstructor'> & { burgerConstructor: TBurgerConstructorType }) =>
-      state.burgerConstructor,
+    (state) => state.burgerConstructor,
   );
 
   const sum = useMemo(() => {
@@ -61,11 +57,11 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
     const ingredientsId = constructorIngredients.map((item) => item._id);
     constructorBuns
       ? dispatch(getOrder([...ingredientsId, constructorBuns._id]))
-      : dispatch(getOrder([...ingredientsId, buns[0]._id]));
+      : dispatch(getOrder([...ingredientsId, buns![0]._id]));
     onModalOpen();
   };
 
-  const handleDeleteIngredient = (key: number | undefined) => {
+  const handleDeleteIngredient = (key: number | undefined | string) => {
     dispatch(deleteConstructorIngredient(key));
     dispatch(decreaseConstructorAmount());
   };
@@ -98,10 +94,10 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
                 type='top'
                 isLocked={true}
                 text={`${
-                  constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
+                  constructorBuns ? constructorBuns.name : buns![0].name + ' можно заменить'
                 } (верх)`}
-                price={constructorBuns ? constructorBuns.price : buns[0].price}
-                thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
+                price={constructorBuns ? constructorBuns.price : buns![0].price}
+                thumbnail={`${constructorBuns ? constructorBuns.image : buns![0].image}`}
                 // className={`ml-8`}
               />
             </div>
@@ -130,10 +126,10 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
                 type='bottom'
                 isLocked={true}
                 text={`${
-                  constructorBuns ? constructorBuns.name : buns[0].name + ' можно заменить'
+                  constructorBuns ? constructorBuns.name : buns![0].name + ' можно заменить'
                 } (низ)`}
-                price={constructorBuns ? constructorBuns.price : buns[0].price}
-                thumbnail={`${constructorBuns ? constructorBuns.image : buns[0].image}`}
+                price={constructorBuns ? constructorBuns.price : buns![0].price}
+                thumbnail={`${constructorBuns ? constructorBuns.image : buns![0].image}`}
                 // className={`ml-8`}
               />
             </div>

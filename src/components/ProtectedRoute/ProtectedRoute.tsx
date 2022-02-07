@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { RootState } from '../../services/reducers';
 import { TAuthType } from '../../utils/types';
 
@@ -9,7 +9,7 @@ type TProtectedRouteProps = {
 };
 
 export const ProtectedRoute: FC<TProtectedRouteProps> = ({ children, ...rest }) => {
-  const { isAuth, getUserRequest } = useSelector((state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user);
+  const { isAuth, getUserRequest } = useSelector((state) => state.user);
 
   if (getUserRequest) return null;
   return (

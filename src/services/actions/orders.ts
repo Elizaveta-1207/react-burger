@@ -11,6 +11,22 @@ type TWSConnectionGetMessage = {
 };
 type TWSConnectionSendMessage = { readonly type: typeof WS_SEND_MESSAGE; readonly payload?: any };
 
+export interface IWsActionTypes {
+	wsInit: "WS_CONNECTION_START";
+	onOpen: "WS_CONNECTION_SUCCESS";
+	onClose: "WS_CONNECTION_CLOSED";
+	onError: "WS_CONNECTION_ERROR";
+	onMessage: "WS_GET_MESSAGE";
+  }
+
+export const wsActions: IWsActionTypes = {
+	wsInit: WS_CONNECTION_START,
+	onOpen: WS_CONNECTION_SUCCESS,
+	onClose: WS_CONNECTION_CLOSED,
+	onError: WS_CONNECTION_ERROR,
+	onMessage: WS_GET_MESSAGE
+  };
+
 
 export type TWSActions =
   | TWSConnectionStart

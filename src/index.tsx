@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import { rootReducer } from './services/reducers';
 import { socketMiddleware } from './services/middlewares/socketMiddleware';
+import { wsActions } from './services/actions/orders';
 
 declare global {
   interface Window {
@@ -21,7 +22,7 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({} as any)
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)));
 
 export const store = createStore(rootReducer, enhancer);
 

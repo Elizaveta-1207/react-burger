@@ -84,6 +84,15 @@ export const App = () => {
             </DndProvider>
           </main>
         </Route>
+        <Route path='/feed' exact>
+          <Feed />
+        </Route>
+        <Route path='/feed/:id'>
+          <FeedDetails />
+        </Route>
+        <Route path='/profile/orders/:id'>
+          <FeedDetails />
+        </Route>
         <Route path='/login' exact>
           <Login />
         </Route>
@@ -101,15 +110,6 @@ export const App = () => {
         </ProtectedRoute>
         <Route path='/ingredients/:id'>
           <IngredientDetails />
-        </Route>
-        <Route path='/feed' exact>
-          <Feed />
-        </Route>
-        <Route path='/feed/:id'>
-          <FeedDetails />
-        </Route>
-        <Route path='/profile/orders/:id'>
-          <FeedDetails />
         </Route>
       </Switch>
 

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredients from './BurgerIngredients.module.css';
 import IngredientsContainer from '../IngredientsContainer/IngredientsContainer';
@@ -7,10 +7,7 @@ import { RootState } from '../../services/reducers';
 import { TBurgerIngredientsType } from '../../utils/types';
 
 function BurgerIngredients() {
-  const data = useSelector(
-    (state: Omit<RootState, 'burgerIngredients'> & { burgerIngredients: TBurgerIngredientsType }) =>
-      state.burgerIngredients.ingredients,
-  );
+  const data = useSelector((state) => state.burgerIngredients.ingredients);
 
   const [currentTab, setCurrentTab] = useState('bun');
 
@@ -19,9 +16,9 @@ function BurgerIngredients() {
   const saucesRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  const buns = data.filter((item) => item.type === 'bun');
-  const sauces = data.filter((item) => item.type === 'sauce');
-  const main = data.filter((item) => item.type === 'main');
+  const buns = data!.filter((item) => item.type === 'bun');
+  const sauces = data!.filter((item) => item.type === 'sauce');
+  const main = data!.filter((item) => item.type === 'main');
 
   const getTab = () => {
     // верх табов

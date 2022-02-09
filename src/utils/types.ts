@@ -24,12 +24,13 @@ export type TIngredientType = {
   type: string;
   image?: string;
   image_large?: string;
+  image_mobile?: string;
   price: number;
   proteins: number;
   fat: number;
   carbohydrates: number;
   calories: number;
-  key?: string;
+  key?: number|string;
 };
 
 export type TBurgerIngredientsType = {
@@ -50,3 +51,29 @@ export type TOrderDetailsProps = {
 	isOrderLoading: boolean;
 	isOrderGetFailed: boolean;
   };
+
+  export type TUser = { email: string; name: string };
+  
+  export type TRes = {
+	success: boolean;
+	user?: TUser;
+	order?: any;
+  };
+
+  export type TRefresh = {
+	success: boolean;
+	accessToken?: string ;
+	refreshToken?: string ;
+	message?: string;
+  };
+
+  export type TOrder = {
+	createdAt: string;
+	ingredients: Array<string>;
+	name: string;
+	number: number;
+	status: string;
+	updatedAt: string;
+	_id: string;
+  };
+  

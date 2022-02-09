@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
@@ -18,6 +18,9 @@ import Register from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
+import Feed from '../../pages/Feed/Feed';
+import FeedDetails from '../../pages/FeedDetails/FeedDetails';
+
 import { GET_USER_FAILED, getUser } from '../../services/actions/user';
 import { getCookie } from '../../utils/constants';
 
@@ -40,7 +43,10 @@ export const App = () => {
     if (modalType === 'order') {
       dispatch(clearOrder());
       setModalType(null);
-    } else history.replace('/');
+    }
+    if (location.state?.backIngredient) history.replace(location.state?.backIngredient);
+    if (location.state?.backFeed) history.replace(location.state?.backFeed);
+    if (location.state?.backProfile) history.replace(location.state?.backProfile);
   };
 
   const handleOpenModalOrder = useCallback(() => {
@@ -52,9 +58,7 @@ export const App = () => {
     if (getCookie('accessToken')) dispatch(getUser());
     else dispatch({ type: GET_USER_FAILED });
     dispatch(getBurgerIngredients());
-  }, []);
-
-  console.log(location);
+  }, [dispatch]);
 
   return (
     <>
@@ -64,7 +68,14 @@ export const App = () => {
         </Modal>
       )}
       <AppHeader />
-      <Switch location={location.state?.back ?? location}>
+      <Switch
+        location={
+          location.state?.backIngredient ??
+          location.state?.backFeed ??
+          location.state?.backProfile ??
+          location
+        }
+      >
         <Route path='/' exact>
           <main className={`${app.main} pl-4 pr-4 mb-8`}>
             <DndProvider backend={HTML5Backend}>
@@ -72,6 +83,15 @@ export const App = () => {
               <BurgerConstructor onModalOpen={handleOpenModalOrder} />
             </DndProvider>
           </main>
+        </Route>
+        <Route path='/feed' exact>
+          <Feed />
+        </Route>
+        <Route path='/feed/:id'>
+          <FeedDetails />
+        </Route>
+        <Route path='/profile/orders/:id'>
+          <FeedDetails />
         </Route>
         <Route path='/login' exact>
           <Login />
@@ -89,12 +109,11 @@ export const App = () => {
           <Profile />
         </ProtectedRoute>
         <Route path='/ingredients/:id'>
-          {' '}
           <IngredientDetails />
         </Route>
       </Switch>
 
-      {location.state?.back && (
+      {location.state?.backIngredient && (
         <Route path='/ingredients/:id'>
           <Modal
             onModalClose={handleCloseModal}
@@ -102,6 +121,22 @@ export const App = () => {
             title={'Детали ингредиента'}
           >
             <IngredientDetails />
+          </Modal>
+        </Route>
+      )}
+
+      {location.state?.backFeed && (
+        <Route path='/feed/:id'>
+          <Modal onModalClose={handleCloseModal} modalType={'order'}>
+            <FeedDetails />
+          </Modal>
+        </Route>
+      )}
+
+      {location.state?.backProfile && (
+        <Route path='/profile/orders/:id'>
+          <Modal onModalClose={handleCloseModal} modalType={'order'}>
+            <FeedDetails />
           </Modal>
         </Route>
       )}

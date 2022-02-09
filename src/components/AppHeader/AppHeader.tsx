@@ -24,11 +24,11 @@ function AppHeader() {
               Конструктор
             </p>
           </NavLink>
-          <NavLink to='/orders' className={`${appHeader.navBtn} ml-5`}>
-            <ListIcon type={`${pathname === '/orders' ? 'primary' : 'secondary'}`} />
+          <NavLink to='/feed' className={`${appHeader.navBtn} ml-5`}>
+            <ListIcon type={`${pathname === '/feed' ? 'primary' : 'secondary'}`} />
             <p
               className={`text text_type_main-default pl-2 mr-5 ${
-                pathname === '/orders' ? '' : 'text_color_inactive'
+                pathname === '/feed' ? '' : 'text_color_inactive'
               }`}
             >
               Лента заказов

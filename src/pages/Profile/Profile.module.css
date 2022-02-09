@@ -1,7 +1,7 @@
 .block {
   display: flex;
   justify-content: center;
-  height: calc(100vh - 86px);
+  /* height: calc(100vh - 86px); */
   margin-top: 120px;
 }
 .nav {
@@ -37,4 +37,26 @@
   justify-content: space-between;
   width: 100%;
   height: 328px;
+}
+
+.ordersBlock {
+  max-width: 480px;
+  height: calc(100vh - 300px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #8585ad;
+  scrollbar-track-color: #2f2f37;
+}
+
+.ordersBlock::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ordersBlock::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+
+.ordersBlock::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
 }

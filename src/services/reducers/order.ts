@@ -4,14 +4,21 @@ import {
   GET_ORDER_ERROR,
   RESET_ORDER,
 } from '../actions/order';
+import { TOrderActions } from '../actions/order';
 
-const initialState = {
+type TInitialState = {
+	orderNumber: number | null;
+	isOrderLoading: boolean;
+	isOrderGetFailed: boolean;
+  };
+
+const initialState: TInitialState = {
   orderNumber: null,
   isOrderLoading: false,
   isOrderGetFailed: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderActions): TInitialState => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {

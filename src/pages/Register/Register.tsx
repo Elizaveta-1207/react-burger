@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import registerStyle from './Register.module.css';
 import { register } from '../../services/actions/user';
 import { emailRegex } from '../../utils/constants';
@@ -12,15 +12,15 @@ function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation<any>();
-  const { user, isAuth, getUserRequest } = useSelector(
-    (state: Omit<RootState, 'user'> & { user: TAuthType }) => state.user,
+  const { user, isAuth, getUserRequest, errorText, registerError } = useSelector(
+    (state) => state.user,
   );
 
   const [username, setUsername] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
-  const errorText = 'Некорректный email';
+  //   const errorText = 'Некорректный email';
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -63,18 +63,18 @@ function Register() {
           value={email || ''}
           onChange={onChange}
           error={emailError}
-          errorText={errorText}
+          errorText={'Некорректный email'}
         />
         <PasswordInput name='password' value={password || ''} onChange={onChange} />
         <Button
           type='primary'
           size='medium'
-          disabled={!email || emailError || !password || !username || user.registerError}
+          disabled={!email || emailError || !password || !username || registerError}
         >
           Вход
         </Button>
         <p className='text text_type_main-small mt-2' style={{ color: 'red' }}>
-          {user.errorText}
+          {errorText === 'Ошибка при регистрации' && errorText}
         </p>
       </form>
       <div className={registerStyle.info}>

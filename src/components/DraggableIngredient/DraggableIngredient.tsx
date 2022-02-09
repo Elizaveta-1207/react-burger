@@ -1,6 +1,6 @@
 import React, { useRef, FC } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 
 import { moveConstructorIngredients } from '../../services/actions/burgerConstructor';
 

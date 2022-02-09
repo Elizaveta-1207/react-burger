@@ -11,7 +11,7 @@ type TProtectedRouteProps = {
 export const ProtectedRoute: FC<TProtectedRouteProps> = ({ children, ...rest }) => {
   const { isAuth, getUserRequest } = useSelector((state) => state.user);
 
-  if (getUserRequest) return null;
+  if (getUserRequest && !isAuth) return null;
   return (
     <Route
       {...rest}

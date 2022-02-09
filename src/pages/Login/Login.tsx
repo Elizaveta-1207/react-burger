@@ -29,8 +29,9 @@ function Login() {
     dispatch(login({ email: email, password: password, history: history }));
   };
 
-  if (getUserRequest) return null;
-  else if (!getUserRequest && isAuth) return <Redirect to={location.state?.from || '/profile'} />;
+  //   if (getUserRequest) return null;
+  if (getUserRequest && isAuth)
+    return <Redirect to={{ pathname: (location as any).state?.from ?? '/profile' }} />;
 
   return (
     <div className={loginStyle.block}>

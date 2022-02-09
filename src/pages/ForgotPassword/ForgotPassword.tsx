@@ -1,13 +1,16 @@
 import React, { ChangeEvent, FormEvent } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import forgotPassword from './ForgotPassword.module.css';
 import { BASE_API_URL } from '../../utils/constants';
+import { useSelector } from '../../services/hooks';
 
 function ForgotPassword() {
   const history = useHistory();
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
+  const { isAuth, getUserRequest } = useSelector((state) => state.user);
+  const location = useLocation<any>();
   const errorText = 'Некорректный email';
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +38,9 @@ function ForgotPassword() {
       .catch(() => setEmailError(true));
   };
 
-  console.log(!email);
+  if (getUserRequest) return null;
+  else if (!getUserRequest && isAuth)
+    return <Redirect to={(location as any).state?.from || '/profile'} />;
 
   return (
     <div className={forgotPassword.block}>

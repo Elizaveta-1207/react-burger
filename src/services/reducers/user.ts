@@ -33,7 +33,7 @@ type TInitialState = {
 	userUpdateRequest: boolean;
 	userUpdateError: boolean;
 	isAuth: boolean;
-	user: TUser | null;
+	user: TUser | null|undefined;
   };
 
 const initialState: TInitialState = {

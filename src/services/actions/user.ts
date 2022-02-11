@@ -27,7 +27,7 @@ type TRegisterActionSuccess = { readonly type: typeof REGISTER_SUCCESS };
 type TRegisterActionFailed = { readonly type: typeof REGISTER_FAILED };
 
 type TLoginActionRequest = { readonly type: typeof AUTH_REQUEST };
-type TLoginActionSuccess = { readonly type: typeof AUTH_SUCCESS; readonly payload: TUser };
+type TLoginActionSuccess = { readonly type: typeof AUTH_SUCCESS; readonly payload: TUser | undefined };
 type TLoginActionFailed = { readonly type: typeof AUTH_FAILED };
 
 type TLogoutActionRequest = { readonly type: typeof LOGOUT_REQUEST };
@@ -35,11 +35,11 @@ type TLogoutActionSuccess = { readonly type: typeof LOGOUT_SUCCESS };
 type TLogoutActionFailed = { readonly type: typeof LOGOUT_FAILED };
 
 type TGetUserActionRequest = { readonly type: typeof GET_USER_REQUEST };
-type TGetUserActionSuccess = { readonly type: typeof GET_USER_SUCCESS; payload: TUser };
+type TGetUserActionSuccess = { readonly type: typeof GET_USER_SUCCESS; payload: TUser | undefined };
 type TGetUserActionFailed = { readonly type: typeof GET_USER_FAILED };
 
 type TUpdateUserActionRequest = { readonly type: typeof USER_UPDATE_REQUEST };
-type TUpdateUserActionSuccess = { readonly type: typeof USER_UPDATE_SUCCESS; payload: TUser };
+type TUpdateUserActionSuccess = { readonly type: typeof USER_UPDATE_SUCCESS; payload: TUser | undefined };
 type TUpdateUserActionFailed = { readonly type: typeof USER_UPDATE_FAILED };
 
 export type TUserActions =

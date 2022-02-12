@@ -16,8 +16,13 @@ export const ProtectedRoute: FC<TProtectedRouteProps> = ({ children, ...rest }) 
     <Route
       {...rest}
       render={({ location }) =>
-        isAuth ? children : <Redirect to={{ pathname: '/login', state: { from: location } }} />
+        isAuth ? (
+          children
+        ) : (
+          <Redirect to={{ pathname: '/login', state: { from: location.pathname } }} />
+        )
       }
+      exact
     />
   );
 };

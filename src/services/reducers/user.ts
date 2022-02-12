@@ -139,7 +139,6 @@ export const userReducer = (state = initialState, action: TUserActions): TInitia
         getUserError: false,
         user: action.payload,
         isAuth: true,
-        getUserLoaded: true,
         errorText: '',
       };
     }

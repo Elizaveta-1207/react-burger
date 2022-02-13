@@ -39,7 +39,7 @@ export const setCookies = (name: string, value: string | number | boolean | null
 	document.cookie = updatedCookie;
   };
 
-export const retriableFetch = async <ReturnType>(url: RequestInfo, options?: RequestInit | undefined | any): Promise<ReturnType> => {
+  export const retriableFetch = async <ReturnType>(url: RequestInfo, options?: RequestInit | undefined | any): Promise<ReturnType> => {
 	try {
 	  return await fetch(url, options).then(async res => {
 		if (res.ok) return res.json() as Promise<ReturnType>;
@@ -52,7 +52,6 @@ export const retriableFetch = async <ReturnType>(url: RequestInfo, options?: Req
 		const accessToken = refreshTokens.accessToken!.split('Bearer ')[1];
 		setCookies('accessToken', accessToken);
 		setCookies('refreshToken', refreshTokens.refreshToken);
-		console.log(refreshTokens);
 		if (!options!.headers) {
 		  options!.headers = {};
 		}

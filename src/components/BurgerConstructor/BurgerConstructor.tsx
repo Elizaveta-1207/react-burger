@@ -82,7 +82,7 @@ function BurgerConstructor({ onModalOpen }: TBurgerConstructor) {
   });
 
   return (
-    <div className={`${burgerConstructor.container} pt-25 pl-4`}>
+    <div id='burgerConstructor-container' className={`${burgerConstructor.container} pt-25 pl-4`}>
       <div
         ref={dropRef}
         className={`${burgerConstructor.block} ${isHover && burgerConstructor.block_hovered}`}

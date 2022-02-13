@@ -24,14 +24,16 @@ export const Modal: FC<TModalProps> = ({ onModalClose, children, modalType, titl
 
   return ReactDOM.createPortal(
     <ModalOverlay onModalClose={onModalClose}>
-      <div className={`${modal.modal}`}>
+      <div id='modal' className={`${modal.modal}`}>
         <div
           className={`${modal.title} pt-10 pl-10 pr-10`}
           style={{ justifyContent: modalType === 'ingredient' ? 'space-between' : 'end' }}
         >
           {modalType === 'ingredient' && <p className={`text text_type_main-large`}>{title}</p>}
           <div className={`${modal.close} pt-10  pr-10`}>
-            <CloseIcon type='primary' onClick={onModalClose} />
+            <div id='close-btn'>
+              <CloseIcon type='primary' onClick={onModalClose} />
+            </div>
           </div>
         </div>
         {children}

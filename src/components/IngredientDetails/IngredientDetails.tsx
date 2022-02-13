@@ -28,29 +28,33 @@ function IngredientDetails() {
         alt='ingredient-icon'
         className={ingredientDetails.image}
       />
-      <p className={`text text_type_main-medium mt-4`} style={{ textAlign: 'center' }}>
+      <p
+        id='ingredient-name'
+        className={`text text_type_main-medium mt-4`}
+        style={{ textAlign: 'center' }}
+      >
         {currentIngredient?.name}
       </p>
       <div className={`${ingredientDetails.details} mt-8`}>
-        <div className={`${ingredientDetails.detail} mr-5`}>
+        <div id='calories' className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Калории,ккал</p>
           <p className='text text_type_digits-default text_color_inactive'>
             {currentIngredient?.calories}
           </p>
         </div>
-        <div className={`${ingredientDetails.detail} mr-5`}>
+        <div id='proteins' className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Белки, г</p>
           <p className='text text_type_digits-default text_color_inactive'>
             {currentIngredient?.proteins}
           </p>
         </div>
-        <div className={`${ingredientDetails.detail} mr-5`}>
+        <div id='fat' className={`${ingredientDetails.detail} mr-5`}>
           <p className='text text_type_main-default text_color_inactive'>Жиры, г</p>
           <p className='text text_type_digits-default text_color_inactive'>
             {currentIngredient?.fat}
           </p>
         </div>
-        <div className={ingredientDetails.detail}>
+        <div id='carbohydrates' className={ingredientDetails.detail}>
           <p className='text text_type_main-default text_color_inactive'>Углеводы, г</p>
           <p className='text text_type_digits-default text_color_inactive'>
             {currentIngredient?.carbohydrates}
